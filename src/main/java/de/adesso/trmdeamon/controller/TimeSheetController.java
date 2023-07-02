@@ -41,7 +41,7 @@ public class TimeSheetController {
     }
 
     @Operation(
-            description = "Delete a new TimeSheet",
+            description = "Delete a TimeSheet",
             responses = {
                     @ApiResponse(responseCode = "204", description = "Time Sheet deleted")
             }
