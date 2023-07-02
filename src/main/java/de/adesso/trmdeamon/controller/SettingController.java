@@ -1,9 +1,7 @@
 package de.adesso.trmdeamon.controller;
 
-import de.adesso.trmdeamon.dto.SettingsDto;
-import de.adesso.trmdeamon.dto.TimeSheetDto;
-import de.adesso.trmdeamon.service.SettingsService;
-import de.adesso.trmdeamon.service.TimeSheetService;
+import de.adesso.trmdeamon.dto.SettingDto;
+import de.adesso.trmdeamon.service.SettingService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
@@ -16,9 +14,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/settings")
 @RequiredArgsConstructor
-public class SettingsController {
+public class SettingController {
 
-    private final SettingsService service;
+    private final SettingService service;
 
     @Operation(
             description = "Create a new Setting",
@@ -27,7 +25,7 @@ public class SettingsController {
             }
     )
     @PostMapping
-    public ResponseEntity<SettingsDto> createSetting(@Valid @RequestBody SettingsDto dto) {
+    public ResponseEntity<SettingDto> createSetting(@Valid @RequestBody SettingDto dto) {
         return ResponseEntity.status(201).body(service.createSetting(dto));
     }
 
@@ -38,7 +36,7 @@ public class SettingsController {
             }
     )
     @PutMapping
-    public ResponseEntity<SettingsDto> updateSetting(@Valid @RequestBody SettingsDto dto) {
+    public ResponseEntity<SettingDto> updateSetting(@Valid @RequestBody SettingDto dto) {
         return ResponseEntity.ok(service.updateSetting(dto));
     }
 
@@ -61,7 +59,7 @@ public class SettingsController {
             }
     )
     @GetMapping("/{id}")
-    public ResponseEntity<SettingsDto> getSetting(@Valid @PathVariable Long id) {
+    public ResponseEntity<SettingDto> getSetting(@Valid @PathVariable Long id) {
         return ResponseEntity.ok(service.getSetting(id));
     }
 
@@ -72,7 +70,7 @@ public class SettingsController {
             }
     )
     @GetMapping()
-    public ResponseEntity<List<SettingsDto>> getAllSettings() {
+    public ResponseEntity<List<SettingDto>> getAllSettings() {
         return ResponseEntity.ok(service.getAllSettings());
     }
 }

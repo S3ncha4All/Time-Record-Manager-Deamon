@@ -1,7 +1,6 @@
 package de.adesso.trmdeamon.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Getter
@@ -9,15 +8,15 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SettingsDto {
+public class BucketDto {
 
     private Long id;
 
     private String name;
 
-    private String value;
+    @JsonProperty("parent_id")
+    private Long parentBucketId;
 
-    @NotNull
     @JsonProperty("time_sheet_id")
     private Long timeSheetId;
 }

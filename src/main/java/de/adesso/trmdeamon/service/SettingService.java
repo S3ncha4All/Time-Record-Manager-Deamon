@@ -1,22 +1,23 @@
 package de.adesso.trmdeamon.service;
 
-import de.adesso.trmdeamon.dto.SettingsDto;
+import de.adesso.trmdeamon.dto.SettingDto;
 import de.adesso.trmdeamon.mapper.Mapper;
 import de.adesso.trmdeamon.model.Setting;
 import de.adesso.trmdeamon.repository.SettingsRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class SettingsService {
+public class SettingService {
 
-    private final Mapper<Setting, SettingsDto> mapper = new Mapper<Setting, SettingsDto>() {
+    private final Mapper<Setting, SettingDto> mapper = new Mapper<Setting, SettingDto>() {
         @Override
-        public SettingsDto fromEntity(Setting setting) {
-            return SettingsDto.builder()
+        public SettingDto fromEntity(Setting setting) {
+            return SettingDto.builder()
                     .id(setting.getId())
                     .name(setting.getName())
                     .value(setting.getValue())
@@ -25,7 +26,7 @@ public class SettingsService {
         }
 
         @Override
-        public Setting fromDto(SettingsDto dto) {
+        public Setting fromDto(SettingDto dto) {
             return Setting.builder()
                     .id(dto.getId())
                     .name(dto.getName())
@@ -36,21 +37,23 @@ public class SettingsService {
 
     private final SettingsRepository repository;
 
-    public SettingsDto createSetting(SettingsDto dto) {
+    public SettingDto createSetting(SettingDto dto) {
         if(dto.getId() != null) throw new RuntimeException("ID was given");
+        if(StringUtils.isEmpty(dto.getName())) throw new RuntimeException("No Name given");
+        if(StringUtils.isEmpty(dto.getValue())) throw new RuntimeException("No Value given");
         Setting s = mapper.fromDto(dto);
         return mapper.fromEntity(repository.save(s));
     }
 
-    public SettingsDto updateSetting(SettingsDto dto) {
+    public SettingDto updateSetting(SettingDto dto) {
         if(dto.getId() == null) throw new RuntimeException("No ID was given");
         Setting s = repository.findById(dto.getId()).orElseThrow(
                 () -> new RuntimeException("ID not found")
         );
-        if(dto.getName() != null) {
+        if(!StringUtils.isEmpty(dto.getName())) {
             s.setName(dto.getName());
         }
-        if(dto.getValue() != null) {
+        if(!StringUtils.isEmpty(dto.getValue())) {
             s.setValue(dto.getValue());
         }
         return mapper.fromEntity(repository.save(s));
@@ -60,14 +63,14 @@ public class SettingsService {
         repository.deleteById(id);
     }
 
-    public SettingsDto getSetting(Long id) {
+    public SettingDto getSetting(Long id) {
         Setting s = repository.findById(id).orElseThrow(
                 () -> new RuntimeException("ID not found")
         );
         return mapper.fromEntity(s);
     }
 
-    public List<SettingsDto> getAllSettings() {
+    public List<SettingDto> getAllSettings() {
         return mapper.listFromEntity(repository.findAll());
     }
 }
