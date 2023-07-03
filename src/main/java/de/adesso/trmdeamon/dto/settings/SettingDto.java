@@ -1,4 +1,4 @@
-package de.adesso.trmdeamon.dto;
+package de.adesso.trmdeamon.dto.settings;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
@@ -11,13 +11,13 @@ import lombok.*;
 @AllArgsConstructor
 public class SettingDto {
 
+    @NotNull
     private Long id;
 
+    @NotNull
     private String name;
 
+    @NotNull
     private String value;
 
-    @NotNull
-    @JsonProperty("time_sheet_id")
-    private Long timeSheetId;
 }

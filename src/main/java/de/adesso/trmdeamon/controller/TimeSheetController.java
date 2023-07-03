@@ -1,6 +1,7 @@
 package de.adesso.trmdeamon.controller;
 
-import de.adesso.trmdeamon.dto.TimeSheetDto;
+import de.adesso.trmdeamon.dto.timesheet.ConstructTimeSheetDto;
+import de.adesso.trmdeamon.dto.timesheet.TimeSheetDto;
 import de.adesso.trmdeamon.service.TimeSheetService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -25,7 +26,7 @@ public class TimeSheetController {
             }
     )
     @PostMapping
-    public ResponseEntity<TimeSheetDto> createTimeSheet(@Valid @RequestBody TimeSheetDto dto) {
+    public ResponseEntity<TimeSheetDto> createTimeSheet(@Valid @RequestBody ConstructTimeSheetDto dto) {
         return ResponseEntity.status(201).body(service.createTimeSheet(dto));
     }
 
@@ -35,9 +36,9 @@ public class TimeSheetController {
                     @ApiResponse(responseCode = "200", description = "Time Sheet updated")
             }
     )
-    @PutMapping
-    public ResponseEntity<TimeSheetDto> updateTimeSheet(@Valid @RequestBody TimeSheetDto dto) {
-        return ResponseEntity.ok(service.updateTimeSheet(dto));
+    @PutMapping("/{id}")
+    public ResponseEntity<TimeSheetDto> updateTimeSheet(@Valid @PathVariable Long id, @Valid @RequestBody ConstructTimeSheetDto dto) {
+        return ResponseEntity.ok(service.updateTimeSheet(id, dto));
     }
 
     @Operation(

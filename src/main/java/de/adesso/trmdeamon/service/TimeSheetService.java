@@ -1,6 +1,7 @@
 package de.adesso.trmdeamon.service;
 
-import de.adesso.trmdeamon.dto.TimeSheetDto;
+import de.adesso.trmdeamon.dto.timesheet.ConstructTimeSheetDto;
+import de.adesso.trmdeamon.dto.timesheet.TimeSheetDto;
 import de.adesso.trmdeamon.mapper.Mapper;
 import de.adesso.trmdeamon.model.TimeSheet;
 import de.adesso.trmdeamon.repository.TimeSheetRepository;
@@ -13,35 +14,28 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TimeSheetService {
 
-    private final Mapper<TimeSheet, TimeSheetDto> mapper = new Mapper<>() {
+    public static final Mapper<TimeSheet, TimeSheetDto> mapper = new Mapper<>() {
         @Override
         public TimeSheetDto fromEntity(TimeSheet timeSheet) {
             return TimeSheetDto.builder()
                     .id(timeSheet.getId())
                     .name(timeSheet.getName())
-                    .build();
-        }
-
-        @Override
-        public TimeSheet fromDto(TimeSheetDto dto) {
-            return TimeSheet.builder()
-                    .id(dto.getId())
-                    .name(dto.getName())
+                    .settings(SettingService.settingSettingMapper.listFromEntity(timeSheet.getSettings()))
                     .build();
         }
     };
 
     private final TimeSheetRepository repository;
 
-    public TimeSheetDto createTimeSheet(TimeSheetDto dto) {
-        if(dto.getId() != null) throw new RuntimeException("ID given");
-        TimeSheet ts = mapper.fromDto(dto);
+    public TimeSheetDto createTimeSheet(ConstructTimeSheetDto dto) {
+        TimeSheet ts = TimeSheet.builder()
+                .name(dto.getName())
+                .build();
         return mapper.fromEntity(repository.save(ts));
     }
 
-    public TimeSheetDto updateTimeSheet(TimeSheetDto dto) {
-        if(dto.getId() == null) throw new RuntimeException("No ID given");
-        TimeSheet ts = repository.findById(dto.getId()).orElseThrow(
+    public TimeSheetDto updateTimeSheet(Long id, ConstructTimeSheetDto dto) {
+        TimeSheet ts = repository.findById(id).orElseThrow(
                 () -> new RuntimeException("ID not found")
         );
         ts.setName(dto.getName());

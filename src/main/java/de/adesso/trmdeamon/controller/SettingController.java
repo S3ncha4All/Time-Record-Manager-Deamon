@@ -1,6 +1,8 @@
 package de.adesso.trmdeamon.controller;
 
-import de.adesso.trmdeamon.dto.SettingDto;
+import de.adesso.trmdeamon.dto.settings.ConstructSettingDto;
+import de.adesso.trmdeamon.dto.settings.SettingDto;
+import de.adesso.trmdeamon.dto.timesheet.TimeSheetDto;
 import de.adesso.trmdeamon.service.SettingService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -12,32 +14,32 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/settings")
+@RequestMapping("/api/time_sheet/{timeSheetId}/settings")
 @RequiredArgsConstructor
 public class SettingController {
 
     private final SettingService service;
 
     @Operation(
-            description = "Create a new Setting",
+            description = "Create a new Setting in TimeSheet",
             responses = {
                     @ApiResponse(responseCode = "201", description = "Setting created")
             }
     )
     @PostMapping
-    public ResponseEntity<SettingDto> createSetting(@Valid @RequestBody SettingDto dto) {
-        return ResponseEntity.status(201).body(service.createSetting(dto));
+    public ResponseEntity<TimeSheetDto> createSetting(@Valid @PathVariable Long timeSheetId, @Valid @RequestBody ConstructSettingDto dto) {
+        return ResponseEntity.status(201).body(service.createSetting(timeSheetId, dto));
     }
 
     @Operation(
-            description = "Updates a given Setting",
+            description = "Updates a given Setting in TimeSheet",
             responses = {
                     @ApiResponse(responseCode = "200", description = "Setting updated")
             }
     )
-    @PutMapping
-    public ResponseEntity<SettingDto> updateSetting(@Valid @RequestBody SettingDto dto) {
-        return ResponseEntity.ok(service.updateSetting(dto));
+    @PutMapping("/{id}")
+    public ResponseEntity<TimeSheetDto> updateSetting(@Valid @PathVariable Long timeSheetId, @Valid @PathVariable Long id, @Valid @RequestBody ConstructSettingDto dto) {
+        return ResponseEntity.ok(service.updateSetting(timeSheetId, id, dto));
     }
 
     @Operation(
@@ -47,30 +49,8 @@ public class SettingController {
             }
     )
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteSetting(@Valid @PathVariable Long id) {
+    public ResponseEntity<Void> deleteSetting(@Valid @PathVariable Long timeSheetId, @Valid @PathVariable Long id) {
         service.deleteSetting(id);
         return ResponseEntity.noContent().build();
-    }
-
-    @Operation(
-            description = "Get a given Setting",
-            responses = {
-                    @ApiResponse(responseCode = "200", description = "Setting fetched")
-            }
-    )
-    @GetMapping("/{id}")
-    public ResponseEntity<SettingDto> getSetting(@Valid @PathVariable Long id) {
-        return ResponseEntity.ok(service.getSetting(id));
-    }
-
-    @Operation(
-            description = "Get all Settings",
-            responses = {
-                    @ApiResponse(responseCode = "200", description = "Settings fetched")
-            }
-    )
-    @GetMapping()
-    public ResponseEntity<List<SettingDto>> getAllSettings() {
-        return ResponseEntity.ok(service.getAllSettings());
     }
 }
