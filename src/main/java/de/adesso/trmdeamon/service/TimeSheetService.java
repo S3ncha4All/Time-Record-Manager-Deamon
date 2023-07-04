@@ -20,7 +20,8 @@ public class TimeSheetService {
             return TimeSheetDto.builder()
                     .id(timeSheet.getId())
                     .name(timeSheet.getName())
-                    .settings(SettingService.settingSettingMapper.listFromEntity(timeSheet.getSettings()))
+                    .settings(SettingService.settingMapper.listFromEntity(timeSheet.getSettings()))
+                    .buckets(BucketService.bucketMapper.listFromEntity(timeSheet.getBuckets()))
                     .build();
         }
     };

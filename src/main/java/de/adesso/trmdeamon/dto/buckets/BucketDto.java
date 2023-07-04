@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Builder
@@ -12,10 +14,12 @@ import lombok.*;
 public class BucketDto {
 
     @NotNull
+    private Long id;
+
+    @NotNull
     private String name;
 
     @NotNull
-    @JsonProperty("parent_id")
-    private Long parentBucketId;
+    private List<BucketDto> childBuckets;
 
 }

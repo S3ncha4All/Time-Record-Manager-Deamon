@@ -8,7 +8,6 @@ import de.adesso.trmdeamon.mapper.Mapper;
 import de.adesso.trmdeamon.model.Setting;
 import de.adesso.trmdeamon.model.TimeSheet;
 import de.adesso.trmdeamon.repository.SettingsRepository;
-import de.adesso.trmdeamon.repository.TimeSheetRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -27,7 +26,7 @@ public class SettingService {
         }
     };
 
-    public static final Mapper<Setting, SettingDto> settingSettingMapper = new Mapper<>() {
+    public static final Mapper<Setting, SettingDto> settingMapper = new Mapper<>() {
         @Override
         public SettingDto fromEntity(Setting setting) {
             return SettingDto.builder()

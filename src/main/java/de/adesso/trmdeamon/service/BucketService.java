@@ -28,6 +28,19 @@ public class BucketService {
         }
     };
 
+    public static final Mapper<Bucket, BucketDto> bucketMapper = new Mapper<>() {
+        @Override
+        public BucketDto fromEntity(Bucket bucket) {
+            BucketDto b = BucketDto.builder()
+                    .id(bucket.getId())
+                    .name(bucket.getName())
+                    .build();
+            List<BucketDto> children = listFromEntity(bucket.getChildren());
+            b.setChildBuckets(children);
+            return b;
+        }
+    };
+
     private final BucketsRepository repository;
     private final TimeSheetService timeSheetService;
 

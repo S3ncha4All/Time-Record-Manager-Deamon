@@ -26,7 +26,6 @@ public class Bucket {
     @ManyToOne(fetch=FetchType.LAZY, cascade={CascadeType.PERSIST, CascadeType.MERGE})
     private Bucket parentBucket;
 
-
     @OneToMany(mappedBy="parentBucket")
     private List<Bucket> children;
 
