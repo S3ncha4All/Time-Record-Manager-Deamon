@@ -17,12 +17,17 @@ public class TimeSheetService {
     public static final Mapper<TimeSheet, TimeSheetDto> mapper = new Mapper<>() {
         @Override
         public TimeSheetDto fromEntity(TimeSheet timeSheet) {
-            return TimeSheetDto.builder()
+            TimeSheetDto dto = TimeSheetDto.builder()
                     .id(timeSheet.getId())
                     .name(timeSheet.getName())
-                    .settings(SettingService.settingMapper.listFromEntity(timeSheet.getSettings()))
-                    .buckets(BucketService.bucketMapper.listFromEntity(timeSheet.getBuckets()))
                     .build();
+            if(timeSheet.getSettings() != null) {
+                dto.setSettings(SettingService.settingMapper.listFromEntity(timeSheet.getSettings()));
+            }
+            if(timeSheet.getBuckets() != null) {
+                dto.setBuckets(BucketService.bucketMapper.listFromEntity(timeSheet.getBuckets()));
+            }
+            return dto;
         }
     };
 

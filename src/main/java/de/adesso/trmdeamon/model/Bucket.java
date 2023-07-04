@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "bucket")
+@Table(name = "buckets")
 public class Bucket {
 
     @Id
@@ -24,6 +24,12 @@ public class Bucket {
     private List<Booking> bookings;
 
     @ManyToOne(fetch=FetchType.LAZY, cascade={CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(
+            name = "parent_id",
+            foreignKey = @ForeignKey(
+                    name = "fk_bucket_id"
+            )
+    )
     private Bucket parentBucket;
 
     @OneToMany(mappedBy="parentBucket")
@@ -34,7 +40,7 @@ public class Bucket {
             name = "time_sheet_id",
             nullable = false,
             foreignKey = @ForeignKey(
-                    name = "fk_bucket_time_sheet_id",
+                    name = "fk_bucket_time_sheets_id",
                     foreignKeyDefinition = "FOREIGN KEY (time_sheet_id)  REFERENCES time_sheet(id)"
             )
     )
