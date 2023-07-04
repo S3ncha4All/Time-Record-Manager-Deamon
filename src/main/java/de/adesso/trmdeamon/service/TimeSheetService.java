@@ -36,17 +36,21 @@ public class TimeSheetService {
 
     public TimeSheetDto updateTimeSheet(Long id, ConstructTimeSheetDto dto) {
         TimeSheet ts = repository.findById(id).orElseThrow(
-                () -> new RuntimeException("ID not found")
+                () -> new RuntimeException("TimeSheet not found")
         );
         ts.setName(dto.getName());
         return mapper.fromEntity(repository.save(ts));
     }
 
-    public TimeSheetDto getTimeSheet(Long id) {
-        TimeSheet ts = repository.findById(id).orElseThrow(
-                () -> new RuntimeException("ID not found")
-        );
+    public TimeSheetDto getTimeSheetDto(Long id) {
+        TimeSheet ts =getTimeSheet(id);
         return mapper.fromEntity(ts);
+    }
+
+    public TimeSheet getTimeSheet(Long id) {
+        return repository.findById(id).orElseThrow(
+                () -> new RuntimeException("TimeSheet not found")
+        );
     }
 
     public List<TimeSheetDto> getAllTimeSheets() {

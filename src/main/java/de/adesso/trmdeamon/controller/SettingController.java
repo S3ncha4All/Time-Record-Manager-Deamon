@@ -2,6 +2,7 @@ package de.adesso.trmdeamon.controller;
 
 import de.adesso.trmdeamon.dto.settings.ConstructSettingDto;
 import de.adesso.trmdeamon.dto.settings.SettingDto;
+import de.adesso.trmdeamon.dto.settings.UpdateSettingDto;
 import de.adesso.trmdeamon.dto.timesheet.TimeSheetDto;
 import de.adesso.trmdeamon.service.SettingService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -38,7 +39,7 @@ public class SettingController {
             }
     )
     @PutMapping("/{id}")
-    public ResponseEntity<TimeSheetDto> updateSetting(@Valid @PathVariable Long timeSheetId, @Valid @PathVariable Long id, @Valid @RequestBody ConstructSettingDto dto) {
+    public ResponseEntity<TimeSheetDto> updateSetting(@Valid @PathVariable Long timeSheetId, @Valid @PathVariable Long id, @Valid @RequestBody UpdateSettingDto dto) {
         return ResponseEntity.ok(service.updateSetting(timeSheetId, id, dto));
     }
 
@@ -49,8 +50,7 @@ public class SettingController {
             }
     )
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteSetting(@Valid @PathVariable Long timeSheetId, @Valid @PathVariable Long id) {
-        service.deleteSetting(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<TimeSheetDto> deleteSetting(@Valid @PathVariable Long timeSheetId, @Valid @PathVariable Long id) {
+        return ResponseEntity.ok(service.deleteSetting(timeSheetId, id));
     }
 }

@@ -1,6 +1,6 @@
 package de.adesso.trmdeamon.dto.timesheet;
 
-import de.adesso.trmdeamon.dto.BucketDto;
+import de.adesso.trmdeamon.dto.buckets.BucketDto;
 import de.adesso.trmdeamon.dto.settings.SettingDto;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;

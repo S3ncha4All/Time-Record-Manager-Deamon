@@ -2,6 +2,7 @@ package de.adesso.trmdeamon.service;
 
 import de.adesso.trmdeamon.dto.settings.ConstructSettingDto;
 import de.adesso.trmdeamon.dto.settings.SettingDto;
+import de.adesso.trmdeamon.dto.settings.UpdateSettingDto;
 import de.adesso.trmdeamon.dto.timesheet.TimeSheetDto;
 import de.adesso.trmdeamon.mapper.Mapper;
 import de.adesso.trmdeamon.model.Setting;
@@ -38,21 +39,19 @@ public class SettingService {
     };
 
     private final SettingsRepository repository;
-    private final TimeSheetRepository timeSheetRepository;
+    private final TimeSheetService timeSheetService;
 
     public TimeSheetDto createSetting(Long timeSheetId, ConstructSettingDto dto) {
+        TimeSheet ts = timeSheetService.getTimeSheet(timeSheetId);
         Setting s = constructionMapper.fromDto(dto);
-        TimeSheet ts = timeSheetRepository.findById(timeSheetId).orElseThrow(
-                () -> new RuntimeException("Time Sheet not found")
-        );
         s.setTimeSheet(ts);
         repository.save(s);
-        return getTimeSheet(timeSheetId);
+        return timeSheetService.getTimeSheetDto(timeSheetId);
     }
 
-    public TimeSheetDto updateSetting(Long timeSheetsId, Long settingId, ConstructSettingDto dto) {
+    public TimeSheetDto updateSetting(Long timeSheetId, Long settingId, UpdateSettingDto dto) {
         Setting s = repository.findById(settingId).orElseThrow(
-                () -> new RuntimeException("ID not found")
+                () -> new RuntimeException("Setting not found")
         );
         if(!StringUtils.isEmpty(dto.getName())) {
             s.setName(dto.getName());
@@ -60,18 +59,12 @@ public class SettingService {
         if(!StringUtils.isEmpty(dto.getValue())) {
             s.setValue(dto.getValue());
         }
-        return getTimeSheet(timeSheetsId);
+        return timeSheetService.getTimeSheetDto(timeSheetId);
     }
 
-    private TimeSheetDto getTimeSheet(Long id) {
-        TimeSheet ts = timeSheetRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Time Sheet not found")
-        );
-        return TimeSheetService.mapper.fromEntity(ts);
-    }
-
-    public void deleteSetting(Long id) {
+    public TimeSheetDto deleteSetting(Long timeSheetId, Long id) {
         repository.deleteById(id);
+        return timeSheetService.getTimeSheetDto(timeSheetId);
     }
 
 }

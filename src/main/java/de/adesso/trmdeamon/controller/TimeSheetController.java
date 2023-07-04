@@ -61,7 +61,7 @@ public class TimeSheetController {
     )
     @GetMapping("/{id}")
     public ResponseEntity<TimeSheetDto> getTimeSheet(@Valid @PathVariable Long id) {
-        return ResponseEntity.ok(service.getTimeSheet(id));
+        return ResponseEntity.ok(service.getTimeSheetDto(id));
     }
 
     @Operation(
