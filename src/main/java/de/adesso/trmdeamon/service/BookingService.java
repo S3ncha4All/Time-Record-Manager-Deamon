@@ -56,7 +56,7 @@ public class BookingService {
 
     public TimeSheetDto updateBooking(Long timeSheetId, Long bucketId, Long id, UpdateBookingDto dto) {
         Booking b = getBooking(timeSheetId, bucketId, id);
-        if(dto.getEndBooking() != null && b.getEnd() != null) {
+        if(dto.getEndBooking() != null && dto.getEndBooking() && b.getEnd() == null) {
             b.setEnd(LocalDateTime.now());
         }
         if(!StringUtils.isEmpty(dto.getName())) {
