@@ -2,6 +2,7 @@ package de.adesso.trmdeamon.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Where;
 
 import java.util.List;
 
@@ -24,6 +25,7 @@ public class TimeSheet {
     @OneToMany(mappedBy = "timeSheet")
     private List<Setting> settings;
 
+    @Where(clause = "parent_id IS NULL OR parent_id = 0")
     @OneToMany(mappedBy = "timeSheet")
     private List<Bucket> buckets;
 }

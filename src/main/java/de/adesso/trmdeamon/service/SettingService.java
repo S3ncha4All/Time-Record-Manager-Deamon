@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class SettingService {
 
-    public static final Mapper<Setting, ConstructSettingDto> constructionMapper = new Mapper<>() {
+    public static final Mapper<Setting, ConstructSettingDto> ConstructionMapper = new Mapper<>() {
         @Override
         public Setting fromDto(ConstructSettingDto dto) {
             return Setting.builder()
@@ -26,7 +26,7 @@ public class SettingService {
         }
     };
 
-    public static final Mapper<Setting, SettingDto> settingMapper = new Mapper<>() {
+    public static final Mapper<Setting, SettingDto> SettingMapper = new Mapper<>() {
         @Override
         public SettingDto fromEntity(Setting setting) {
             return SettingDto.builder()
@@ -42,7 +42,7 @@ public class SettingService {
 
     public TimeSheetDto createSetting(Long timeSheetId, ConstructSettingDto dto) {
         TimeSheet ts = timeSheetService.getTimeSheet(timeSheetId);
-        Setting s = constructionMapper.fromDto(dto);
+        Setting s = ConstructionMapper.fromDto(dto);
         s.setTimeSheet(ts);
         repository.save(s);
         return timeSheetService.getTimeSheetDto(timeSheetId);

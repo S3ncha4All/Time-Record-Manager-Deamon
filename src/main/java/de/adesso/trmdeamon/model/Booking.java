@@ -35,7 +35,9 @@ public class Booking {
     @OneToMany(mappedBy = "booking")
     private List<Attribute> attributes;
 
+    @Column(name = "begin_booking_timestamp", nullable = false)
     private LocalDateTime begin;
 
+    @Column(name = "end_booking_timestamp")
     private LocalDateTime end;
 }

@@ -15,24 +15,20 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TimeSheetService {
 
-    public static final Mapper<TimeSheet, TimeSheetDto> mapper = new Mapper<>() {
+    public static final Mapper<TimeSheet, TimeSheetDto> TimeSheetMapper = new Mapper<>() {
         @Override
         public TimeSheetDto fromEntity(TimeSheet timeSheet) {
             TimeSheetDto dto = TimeSheetDto.builder()
                     .id(timeSheet.getId())
                     .name(timeSheet.getName())
+                    .settings(SettingService.SettingMapper.listFromEntity(timeSheet.getSettings()))
+                    .buckets(BucketService.BucketMapper.listFromEntity(timeSheet.getBuckets()))
                     .build();
-            if(timeSheet.getSettings() != null) {
-                dto.setSettings(SettingService.settingMapper.listFromEntity(timeSheet.getSettings()));
-            }
-            if(timeSheet.getBuckets() != null) {
-                dto.setBuckets(BucketService.bucketMapper.listFromEntity(timeSheet.getBuckets()));
-            }
             return dto;
         }
     };
 
-    public static final Mapper<TimeSheet, AllTimeSheetDto> allTimeSheetMapper = new Mapper<>() {
+    public static final Mapper<TimeSheet, AllTimeSheetDto> AllTimeSheetMapper = new Mapper<>() {
         @Override
         public AllTimeSheetDto fromEntity(TimeSheet timeSheet) {
             return AllTimeSheetDto.builder()
@@ -48,7 +44,7 @@ public class TimeSheetService {
         TimeSheet ts = TimeSheet.builder()
                 .name(dto.getName())
                 .build();
-        return mapper.fromEntity(repository.save(ts));
+        return TimeSheetMapper.fromEntity(repository.save(ts));
     }
 
     public TimeSheetDto updateTimeSheet(Long id, ConstructTimeSheetDto dto) {
@@ -56,12 +52,12 @@ public class TimeSheetService {
                 () -> new RuntimeException("TimeSheet not found")
         );
         ts.setName(dto.getName());
-        return mapper.fromEntity(repository.save(ts));
+        return TimeSheetMapper.fromEntity(repository.save(ts));
     }
 
     public TimeSheetDto getTimeSheetDto(Long id) {
         TimeSheet ts =getTimeSheet(id);
-        return mapper.fromEntity(ts);
+        return TimeSheetMapper.fromEntity(ts);
     }
 
     public TimeSheet getTimeSheet(Long id) {
@@ -71,7 +67,7 @@ public class TimeSheetService {
     }
 
     public List<AllTimeSheetDto> getAllTimeSheets() {
-        return allTimeSheetMapper.listFromEntity(repository.findAll());
+        return AllTimeSheetMapper.listFromEntity(repository.findAll());
     }
 
     public void deleteTimeSheet(Long id) {

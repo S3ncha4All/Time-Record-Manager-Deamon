@@ -14,7 +14,6 @@ public class ConstructBucketDto {
     @NotNull
     private String name;
 
-    @NotNull
     @JsonProperty("parent_id")
     private Long parentBucketId;
 }

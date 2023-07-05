@@ -104,12 +104,12 @@ databaseChangeLog:
                     foreignKeyName: fk_bookings_bucket_id
                     references: buckets(id)
               - column:
-                  name: begin
+                  name: begin_booking_timestamp
                   type: TIMESTAMPTZ
                   constraints:
                     nullable: false
               - column:
-                  name: end
+                  name: end_booking_timestamp
                   type: TIMESTAMPTZ
         - createTable:
             tableName: attributes
@@ -128,6 +128,8 @@ databaseChangeLog:
                   type: VARCHAR(20)
                   constraints:
                     nullable: false
+                    unique: true
+                    uniqueConstraintName: unique_constraint_attribute_name
               - column:
                   name: value
                   type: VARCHAR(50)
@@ -138,3 +140,5 @@ databaseChangeLog:
                     nullable: false
                     foreignKeyName: fk_attributes_bookings_id
                     references: bookings(id)
+                    unique: true
+                    uniqueConstraintName: unique_constraint_attribute_name
