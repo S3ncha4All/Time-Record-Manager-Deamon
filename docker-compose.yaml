@@ -1,0 +1,29 @@
+version: '1.0'
+
+services:
+  trmdeamon:
+    image: 's3ncha/trmdeamon'
+    container_name: Time-Record-Management-Deamon
+    hostname: trmdeamon
+    ports:
+      - 8080:8080
+    depends_on:
+      - trmdeamon_postgres
+    environment:
+      - spring.datasource.url=jdbc:postgresql://trmdeamon_postgres:5432/time_record_management
+      - spring.datasource.username=postgres
+      - spring.datasource.password=postgres
+  trmdeamon_postgres:
+    image: 'postgres:15.3-alpine3.18'
+    container_name: trmdeamon_postgres
+    volumes:
+      - trmdeamon_storage:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=time_record_management
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    ports:
+      - 5432:5432
+volumes:
+  trmdeamon_storage:
