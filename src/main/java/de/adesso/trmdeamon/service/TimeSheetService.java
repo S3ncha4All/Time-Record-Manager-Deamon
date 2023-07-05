@@ -1,5 +1,6 @@
 package de.adesso.trmdeamon.service;
 
+import de.adesso.trmdeamon.dto.timesheet.AllTimeSheetDto;
 import de.adesso.trmdeamon.dto.timesheet.ConstructTimeSheetDto;
 import de.adesso.trmdeamon.dto.timesheet.TimeSheetDto;
 import de.adesso.trmdeamon.mapper.Mapper;
@@ -31,6 +32,16 @@ public class TimeSheetService {
         }
     };
 
+    public static final Mapper<TimeSheet, AllTimeSheetDto> allTimeSheetMapper = new Mapper<>() {
+        @Override
+        public AllTimeSheetDto fromEntity(TimeSheet timeSheet) {
+            return AllTimeSheetDto.builder()
+                    .id(timeSheet.getId())
+                    .name(timeSheet.getName())
+                    .build();
+        }
+    };
+
     private final TimeSheetRepository repository;
 
     public TimeSheetDto createTimeSheet(ConstructTimeSheetDto dto) {
@@ -59,8 +70,8 @@ public class TimeSheetService {
         );
     }
 
-    public List<TimeSheetDto> getAllTimeSheets() {
-        return mapper.listFromEntity(repository.findAll());
+    public List<AllTimeSheetDto> getAllTimeSheets() {
+        return allTimeSheetMapper.listFromEntity(repository.findAll());
     }
 
     public void deleteTimeSheet(Long id) {

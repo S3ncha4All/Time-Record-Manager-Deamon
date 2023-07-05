@@ -1,5 +1,6 @@
 package de.adesso.trmdeamon.controller;
 
+import de.adesso.trmdeamon.dto.timesheet.AllTimeSheetDto;
 import de.adesso.trmdeamon.dto.timesheet.ConstructTimeSheetDto;
 import de.adesso.trmdeamon.dto.timesheet.TimeSheetDto;
 import de.adesso.trmdeamon.service.TimeSheetService;
@@ -71,7 +72,7 @@ public class TimeSheetController {
             }
     )
     @GetMapping()
-    public ResponseEntity<List<TimeSheetDto>> getAllTimeSheet() {
+    public ResponseEntity<List<AllTimeSheetDto>> getAllTimeSheet() {
         return ResponseEntity.ok(service.getAllTimeSheets());
     }
 }

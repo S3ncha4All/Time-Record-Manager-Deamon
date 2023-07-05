@@ -71,7 +71,7 @@ public class BucketService {
         return timeSheetService.getTimeSheetDto(timeSheetId);
     }
 
-    private Bucket getBucket(Long id) {
+    public Bucket getBucket(Long id) {
         return repository.findById(id).orElseThrow(
                 () -> new RuntimeException("Bucket not found")
         );
