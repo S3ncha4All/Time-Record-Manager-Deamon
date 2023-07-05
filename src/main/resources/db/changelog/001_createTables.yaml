@@ -112,7 +112,7 @@ databaseChangeLog:
                   name: end_booking_timestamp
                   type: TIMESTAMPTZ
         - createTable:
-            tableName: attributes
+            tableName: booking_attributes
             columns:
               - column:
                   name: id
@@ -120,7 +120,7 @@ databaseChangeLog:
                   autoIncrement: true
                   constraints:
                     primaryKey: true
-                    primaryKeyName: pk_attributes_id
+                    primaryKeyName: pk_booking_attributes_id
                     unique: true
                     nullable: false
               - column:
@@ -129,7 +129,7 @@ databaseChangeLog:
                   constraints:
                     nullable: false
                     unique: true
-                    uniqueConstraintName: unique_constraint_attribute_name
+                    uniqueConstraintName: unique_constraint_booking_attribute_name
               - column:
                   name: value
                   type: VARCHAR(50)
@@ -141,4 +141,35 @@ databaseChangeLog:
                     foreignKeyName: fk_attributes_bookings_id
                     references: bookings(id)
                     unique: true
-                    uniqueConstraintName: unique_constraint_attribute_name
+                    uniqueConstraintName: unique_constraint_booking_attribute_name
+        - createTable:
+            tableName: bucket_attributes
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_bucket_attributes_id
+                    unique: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+                    unique: true
+                    uniqueConstraintName: unique_constraint_bucket_attribute_name
+              - column:
+                  name: value
+                  type: VARCHAR(50)
+              - column:
+                  name: bucket_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_attributes_buckets_id
+                    references: bookings(id)
+                    unique: true
+                    uniqueConstraintName: unique_constraint_bucket_attributes_name

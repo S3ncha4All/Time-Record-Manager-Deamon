@@ -9,8 +9,8 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "attributes")
-public class Attribute {
+@Table(name = "bucket_attributes")
+public class BucketAttribute {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,12 +22,12 @@ public class Attribute {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(
-            name = "booking_id",
+            name = "bucket_id",
             nullable = false,
             foreignKey = @ForeignKey(
-                    name = "fk_attributes_bookings_id",
-                    foreignKeyDefinition = "FOREIGN KEY (booking_id)  REFERENCES bookings(id)"
+                    name = "fk_attributes_buckets_id",
+                    foreignKeyDefinition = "FOREIGN KEY (booking_id)  REFERENCES buckets(id)"
             )
     )
-    private Booking booking;
+    private Bucket bucket;
 }

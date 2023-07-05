@@ -35,6 +35,9 @@ public class Bucket {
     @OneToMany(mappedBy="parentBucket")
     private List<Bucket> children;
 
+    @OneToMany(mappedBy = "bucket")
+    private List<BucketAttribute> bucketAttributes;
+
     @ManyToOne
     @JoinColumn(
             name = "time_sheet_id",

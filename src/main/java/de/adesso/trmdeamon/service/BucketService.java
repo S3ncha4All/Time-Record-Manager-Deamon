@@ -33,6 +33,7 @@ public class BucketService {
                     .name(bucket.getName())
                     .childBuckets(listFromEntity(bucket.getChildren()))
                     .bookings(BookingService.BookingMapper.listFromEntity(bucket.getBookings()))
+                    .attributes(AttributeService.BucketAttributeMapper.listFromEntity(bucket.getBucketAttributes()))
                     .build();
         }
     };

@@ -33,7 +33,7 @@ public class Booking {
     private Bucket bucket;
 
     @OneToMany(mappedBy = "booking")
-    private List<Attribute> attributes;
+    private List<BookingAttribute> bookingAttributes;
 
     @Column(name = "begin_booking_timestamp", nullable = false)
     private LocalDateTime begin;

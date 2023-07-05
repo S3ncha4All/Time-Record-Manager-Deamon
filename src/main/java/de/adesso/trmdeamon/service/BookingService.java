@@ -35,7 +35,7 @@ public class BookingService {
                     .name(booking.getName())
                     .begin(booking.getBegin())
                     .end(booking.getEnd())
-                    .attributes(AttributeService.AttributeMapper.listFromEntity(booking.getAttributes()))
+                    .attributes(AttributeService.BookingAttributeMapper.listFromEntity(booking.getBookingAttributes()))
                     .build();
         }
     };

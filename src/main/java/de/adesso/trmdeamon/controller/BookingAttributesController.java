@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/time_sheet/{timeSheetId}/buckets/{bucketId}/booking/{bookingId}/attributes")
 @RequiredArgsConstructor
-public class AttributesController {
+public class BookingAttributesController {
 
     private final AttributeService service;
 
@@ -25,29 +25,29 @@ public class AttributesController {
             }
     )
     @PostMapping
-    public ResponseEntity<TimeSheetDto> createBooking(@Valid @PathVariable Long timeSheetId, @Valid @PathVariable Long bucketId, @Valid @PathVariable Long bookingId, @Valid @RequestBody ConstructAttributesDto dto) {
-        return ResponseEntity.status(201).body(service.createAttributes(timeSheetId, bucketId, bookingId, dto));
+    public ResponseEntity<TimeSheetDto> createBookingAttribute(@Valid @PathVariable Long timeSheetId, @Valid @PathVariable Long bucketId, @Valid @PathVariable Long bookingId, @Valid @RequestBody ConstructAttributesDto dto) {
+        return ResponseEntity.status(201).body(service.createBookingAttributes(timeSheetId, bucketId, bookingId, dto));
     }
 
     @Operation(
-            description = "Updates a given Attribute",
+            description = "Updates a given Booking-Attribute",
             responses = {
                     @ApiResponse(responseCode = "200", description = "Attribute updated")
             }
     )
     @PutMapping("/{id}")
-    public ResponseEntity<TimeSheetDto> updateBooking(@Valid @PathVariable Long timeSheetId, @Valid @PathVariable Long bucketId, @Valid @PathVariable Long bookingId, @Valid @PathVariable Long id, @Valid @RequestBody UpdateAttributesDto dto) {
-        return ResponseEntity.ok(service.updateAttributes(timeSheetId, bucketId, bookingId, id, dto));
+    public ResponseEntity<TimeSheetDto> updateBookingAttribute(@Valid @PathVariable Long timeSheetId, @Valid @PathVariable Long bucketId, @Valid @PathVariable Long bookingId, @Valid @PathVariable Long id, @Valid @RequestBody UpdateAttributesDto dto) {
+        return ResponseEntity.ok(service.updateBookingAttributes(timeSheetId, bucketId, bookingId, id, dto));
     }
 
     @Operation(
-            description = "Delete a given Attribute",
+            description = "Delete a given Booking-Attribute",
             responses = {
                     @ApiResponse(responseCode = "204", description = "Attribute deleted")
             }
     )
     @DeleteMapping("/{id}")
-    public ResponseEntity<TimeSheetDto> deleteBooking(@Valid @PathVariable Long timeSheetId, @Valid @PathVariable Long bucketId, @Valid @PathVariable Long bookingId, @Valid @PathVariable Long id) {
-        return ResponseEntity.ok(service.deleteAttributes(timeSheetId, bucketId, bookingId, id));
+    public ResponseEntity<TimeSheetDto> deleteBookingAttribute(@Valid @PathVariable Long timeSheetId, @Valid @PathVariable Long bucketId, @Valid @PathVariable Long bookingId, @Valid @PathVariable Long id) {
+        return ResponseEntity.ok(service.deleteBookingAttributes(timeSheetId, bucketId, bookingId, id));
     }
 }

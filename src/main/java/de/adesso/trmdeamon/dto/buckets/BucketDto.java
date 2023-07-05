@@ -1,6 +1,7 @@
 package de.adesso.trmdeamon.dto.buckets;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import de.adesso.trmdeamon.dto.attributes.AttributesDto;
 import de.adesso.trmdeamon.dto.bookings.BookingDto;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -25,5 +26,8 @@ public class BucketDto {
 
     @NotNull
     private List<BookingDto> bookings;
+
+    @NotNull
+    private List<AttributesDto> attributes;
 
 }
