@@ -9,7 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "attribute")
+@Table(name = "attributes")
 public class Attribute {
 
     @Id
