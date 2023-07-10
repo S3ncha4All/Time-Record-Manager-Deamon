@@ -17,12 +17,10 @@ public class BookingTags {
     private Long id;
 
     @ManyToOne
-    @MapsId("booking_id")
-    @JoinColumn(name = "booking_id")
+    @JoinColumn(name = "booking_id", nullable = false)
     private Booking booking;
 
     @ManyToOne
-    @MapsId("tag_id")
-    @JoinColumn(name = "tag_id")
+    @JoinColumn(name = "tag_id", nullable = false)
     private Tag tag;
 }

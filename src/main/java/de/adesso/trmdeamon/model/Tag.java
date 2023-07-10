@@ -3,9 +3,7 @@ package de.adesso.trmdeamon.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -23,5 +21,5 @@ public class Tag {
     private String name;
 
     @OneToMany(mappedBy = "tag")
-    private List<BookingTags> tags;
+    private List<BookingTags> tagBookings;
 }
