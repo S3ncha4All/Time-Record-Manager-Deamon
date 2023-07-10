@@ -1,6 +1,9 @@
 package de.adesso.trmdeamon.controller;
 
-import de.adesso.trmdeamon.dto.BookingDto;
+import de.adesso.trmdeamon.dto.booking.BookingCreateDto;
+import de.adesso.trmdeamon.dto.booking.BookingReadDetailsDto;
+import de.adesso.trmdeamon.dto.booking.BookingReadDto;
+import de.adesso.trmdeamon.dto.booking.BookingUpdateDto;
 import de.adesso.trmdeamon.service.BookingService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -25,7 +28,7 @@ public class BookingController {
             }
     )
     @PostMapping
-    public ResponseEntity<BookingDto> createBooking(@Valid @RequestBody BookingDto dto) {
+    public ResponseEntity<BookingReadDto> createBooking(@Valid @RequestBody BookingCreateDto dto) {
         return ResponseEntity.status(201).body(service.createBooking(dto));
     }
 
@@ -36,7 +39,7 @@ public class BookingController {
             }
     )
     @GetMapping("/{id}")
-    public ResponseEntity<BookingDto> getBooking(@Valid @PathVariable Long id) {
+    public ResponseEntity<BookingReadDetailsDto> getBooking(@Valid @PathVariable Long id) {
         return ResponseEntity.ok(service.getBookingDto(id));
     }
 
@@ -47,8 +50,8 @@ public class BookingController {
             }
     )
     @GetMapping()
-    public ResponseEntity<List<BookingDto>> getAllBookings() {
-        return ResponseEntity.ok(service.getAllBooking());
+    public ResponseEntity<List<BookingReadDto>> getAllBookings(@Valid @RequestParam(value = "time-sheet-id") Long timeSheetId) {
+        return ResponseEntity.ok(service.getAllBooking(timeSheetId));
     }
 
     @Operation(
@@ -58,8 +61,19 @@ public class BookingController {
             }
     )
     @PutMapping()
-    public ResponseEntity<BookingDto> updateBooking(@Valid @RequestBody BookingDto dto) {
+    public ResponseEntity<BookingReadDto> updateBooking(@Valid @RequestBody BookingUpdateDto dto) {
         return ResponseEntity.ok(service.updateBooking(dto));
+    }
+
+    @Operation(
+            description = "End a given Booking",
+            responses = {
+                    @ApiResponse(responseCode = "204", description = "Booking ended")
+            }
+    )
+    @PutMapping("/{id}/end")
+    public ResponseEntity<BookingReadDto> endBooking(@Valid @PathVariable Long id) {
+        return ResponseEntity.ok(service.endBooking(id));
     }
 
     @Operation(

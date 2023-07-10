@@ -1,22 +1,22 @@
-package de.adesso.trmdeamon.dto.timesheet;
+package de.adesso.trmdeamon.dto.booking;
+
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TimeSheetReadDto {
+public class BookingCreateDto {
 
     @NotNull
-    private Long id;
+    @JsonProperty("time_sheet_id")
+    private Long timeSheetId;
 
-    @NotNull
-    private String name;
-
-    @JsonProperty("booking_count")
-    private int bookingCount;
 }

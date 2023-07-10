@@ -10,6 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 public class SettingUpdateDto {
 
+    @NotNull
     private Long id;
 
     @NotNull

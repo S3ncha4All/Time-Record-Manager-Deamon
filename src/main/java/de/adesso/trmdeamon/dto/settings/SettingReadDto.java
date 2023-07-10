@@ -10,6 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 public class SettingReadDto {
 
+    @NotNull
     private Long id;
 
     @NotNull

@@ -1,6 +1,6 @@
 package de.adesso.trmdeamon.dto.timesheet;
 
-import de.adesso.trmdeamon.dto.BookingDto;
+import de.adesso.trmdeamon.dto.booking.BookingReadDetailsDto;
 import de.adesso.trmdeamon.dto.settings.SettingReadDto;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -14,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class TimeSheetReadDetailsDto {
 
+    @NotNull
     private Long id;
 
     @NotNull
@@ -21,6 +22,6 @@ public class TimeSheetReadDetailsDto {
 
     private List<SettingReadDto> settings;
 
-    private List<BookingDto> bookings;
+    private List<BookingReadDetailsDto> bookings;
 
 }

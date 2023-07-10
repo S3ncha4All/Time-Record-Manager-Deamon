@@ -49,7 +49,7 @@ public class SettingController {
             }
     )
     @GetMapping()
-    public ResponseEntity<List<SettingReadDto>> getAllSettings(@Valid @RequestParam Long timeSheetId) {
+    public ResponseEntity<List<SettingReadDto>> getAllSettings(@Valid @RequestParam(value = "time-sheet-id") Long timeSheetId) {
         return ResponseEntity.ok(service.getAllSettings(timeSheetId));
     }
 

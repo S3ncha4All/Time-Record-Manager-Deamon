@@ -10,6 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 public class TimeSheetUpdateDto {
 
+    @NotNull
     private Long id;
 
     @NotNull

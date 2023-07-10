@@ -1,6 +1,9 @@
 package de.adesso.trmdeamon.service;
 
-import de.adesso.trmdeamon.dto.BookingDto;
+import de.adesso.trmdeamon.dto.booking.BookingCreateDto;
+import de.adesso.trmdeamon.dto.booking.BookingReadDetailsDto;
+import de.adesso.trmdeamon.dto.booking.BookingReadDto;
+import de.adesso.trmdeamon.dto.booking.BookingUpdateDto;
 import de.adesso.trmdeamon.mapper.BookingMapper;
 import de.adesso.trmdeamon.model.Booking;
 import de.adesso.trmdeamon.model.TimeSheet;
@@ -19,15 +22,21 @@ public class BookingService {
     private final BookingsRepository repository;
     private final TimeSheetService timeSheetService;
 
-    public BookingDto createBooking(BookingDto dto) {
-        Booking b = mapper.fromDto(dto);
+    public BookingReadDto createBooking(BookingCreateDto dto) {
+        Booking b = Booking.builder().build();
         TimeSheet ts = timeSheetService.getTimeSheet(dto.getTimeSheetId());
         b.setTimeSheet(ts);
         b.setBegin(LocalDateTime.now());
-        return mapper.fromEntity(repository.save(b));
+        return mapper.toReadDto(repository.save(b));
     }
 
-    public BookingDto updateBooking(BookingDto dto) {
+    public BookingReadDto endBooking(Long id) {
+        Booking b = getBooking(id);
+        b.setEnd(LocalDateTime.now());
+        return mapper.toReadDto(repository.save(b));
+    }
+
+    public BookingReadDto updateBooking(BookingUpdateDto dto) {
         Booking b = getBooking(dto.getId());
         if(dto.getBegin() != null) {
             b.setBegin(dto.getBegin());
@@ -35,19 +44,19 @@ public class BookingService {
         if(dto.getEnd() != null) {
             b.setEnd(dto.getEnd());
         }
-        return mapper.fromEntity(repository.save(b));
+        return mapper.toReadDto(repository.save(b));
     }
 
     public void deleteBooking(Long id) {
         repository.deleteById(id);
     }
 
-    public BookingDto getBookingDto(Long id) {
-        return mapper.fromEntity(getBooking(id));
+    public BookingReadDetailsDto getBookingDto(Long id) {
+        return mapper.toReadDetailsDto(getBooking(id));
     }
 
-    public List<BookingDto> getAllBooking() {
-        return mapper.listFromEntity(repository.findAll());
+    public List<BookingReadDto> getAllBooking(Long timeSheetId) {
+        return mapper.listToReadDto(repository.findAll());
     }
 
     public Booking getBooking(Long id) {
