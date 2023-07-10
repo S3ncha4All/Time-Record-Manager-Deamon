@@ -17,9 +17,4 @@ public class TagReadDto {
 
     @NotNull
     private String name;
-
-    @NotNull
-    @JsonProperty("booking-id")
-    private Long bookingId;
-
 }

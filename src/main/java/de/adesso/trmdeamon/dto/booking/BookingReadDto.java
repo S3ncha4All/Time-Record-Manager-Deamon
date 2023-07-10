@@ -18,10 +18,6 @@ public class BookingReadDto {
     private Long id;
 
     @NotNull
-    @JsonProperty("time-sheet-id")
-    private Long timeSheetId;
-
-    @NotNull
     private LocalDateTime begin;
 
     private LocalDateTime end;

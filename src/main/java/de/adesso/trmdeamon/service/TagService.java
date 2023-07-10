@@ -28,18 +28,10 @@ public class TagService {
 
     public List<TagReadDto> createTag(TagCreateDto dto) {
         Booking b = getBooking(dto.getBookingId());
-        List<Tag> tags = new ArrayList<>();
-        for(String name : dto.getTagNames()) {
-            Tag t = Tag.builder().build();
-            t.setName(name);
-            t = tagRepository.save(t);
-            tags.add(t);
-            BookingTags bt = BookingTags.builder()
-                    .tag(t)
-                    .booking(b)
-                    .build();
-            bookingTagsRepository.save(bt);
-        }
+        List<Tag> tags = tagRepository.saveAll(dto.getTagNames().stream().map(n -> Tag.builder().name(n).build()).toList());
+        List<BookingTags> bookingTags = tags.stream().map(t -> BookingTags.builder().tag(t).booking(b).build()).toList();
+        bookingTagsRepository.save(bookingTags.get(0));
+//        List<BookingTags> bts = bookingTagsRepository.saveAll(bookingTags);
         return tagMapper.listFromEntity(tags);
     }
 

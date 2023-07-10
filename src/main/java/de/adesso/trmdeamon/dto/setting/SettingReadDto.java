@@ -19,8 +19,4 @@ public class SettingReadDto {
 
     private String value;
 
-    @NotNull
-    @JsonProperty("time-sheet-id")
-    private Long timeSheetId;
-
 }

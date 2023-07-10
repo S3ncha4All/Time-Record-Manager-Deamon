@@ -22,7 +22,6 @@ public class SettingsMapper {
                 .id(ts.getId())
                 .name(ts.getName())
                 .value(ts.getValue())
-                .timeSheetId(ts.getTimeSheet().getId())
                 .build();
     }
 

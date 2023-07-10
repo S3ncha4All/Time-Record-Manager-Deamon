@@ -21,7 +21,6 @@ public class BookingMapper {
         return BookingReadDto.builder()
                 .begin(booking.getBegin())
                 .end(booking.getEnd())
-                .timeSheetId(booking.getTimeSheet().getId())
                 .build();
     }
 
@@ -30,7 +29,6 @@ public class BookingMapper {
                 .id(booking.getId())
                 .begin(booking.getBegin())
                 .end(booking.getEnd())
-                .timeSheetId(booking.getTimeSheet().getId())
                 .build();
         if(booking.getTags() != null) {
             b.setTags(tagMapper.listFromEntity(booking.getTags().stream().map(BookingTags::getTag).toList()));
@@ -42,5 +40,9 @@ public class BookingMapper {
 
     public List<BookingReadDto> listToReadDto(List<Booking> list) {
         return list.stream().map(this::toReadDto).toList();
+    }
+
+    public List<BookingReadDetailsDto> listToReadDetailsDto(List<Booking> list) {
+        return list.stream().map(this::toReadDetailsDto).toList();
     }
 }
