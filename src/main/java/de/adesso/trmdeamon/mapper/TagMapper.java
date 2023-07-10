@@ -10,12 +10,6 @@ import java.util.List;
 @Component
 public class TagMapper {
 
-    public Tag fromCreateDto(TagCreateDto dto) {
-        return Tag.builder()
-                .name(dto.getName())
-                .build();
-    }
-
     public TagReadDto fromEntity(Tag tag) {
         return TagReadDto.builder()
                 .id(tag.getId())

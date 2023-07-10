@@ -13,6 +13,7 @@ import de.adesso.trmdeamon.repository.TagsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -25,16 +26,21 @@ public class TagService {
     private final BookingTagsRepository bookingTagsRepository;
     private final BookingsRepository bookingRepository;
 
-    public TagReadDto createTag(TagCreateDto dto) {
-        Tag t = tagMapper.fromCreateDto(dto);
-        t = tagRepository.save(t);
+    public List<TagReadDto> createTag(TagCreateDto dto) {
         Booking b = getBooking(dto.getBookingId());
-        BookingTags bt = BookingTags.builder()
-                .tag(t)
-                .booking(b)
-                .build();
-        bookingTagsRepository.save(bt);
-        return tagMapper.fromEntity(t);
+        List<Tag> tags = new ArrayList<>();
+        for(String name : dto.getTagNames()) {
+            Tag t = Tag.builder().build();
+            t.setName(name);
+            t = tagRepository.save(t);
+            tags.add(t);
+            BookingTags bt = BookingTags.builder()
+                    .tag(t)
+                    .booking(b)
+                    .build();
+            bookingTagsRepository.save(bt);
+        }
+        return tagMapper.listFromEntity(tags);
     }
 
     public List<TagReadDto> getAllTags(Long bookingId) {

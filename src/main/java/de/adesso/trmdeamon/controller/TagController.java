@@ -27,7 +27,7 @@ public class TagController {
             }
     )
     @PostMapping("")
-    public ResponseEntity<TagReadDto> createTag(@Valid @RequestBody TagCreateDto dto) {
+    public ResponseEntity<List<TagReadDto>> createTag(@Valid @RequestBody TagCreateDto dto) {
         return ResponseEntity.status(201).body(service.createTag(dto));
     }
 
@@ -43,7 +43,7 @@ public class TagController {
     }
 
     @Operation(
-            description = "Updates a given Tag in a given Booking",
+            description = "Updates a given Tag",
             responses = {
                     @ApiResponse(responseCode = "200", description = "Tag updated")
             }

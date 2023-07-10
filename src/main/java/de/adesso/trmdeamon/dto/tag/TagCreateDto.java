@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Builder
@@ -13,7 +15,7 @@ import lombok.*;
 public class TagCreateDto {
 
     @NotNull
-    private String name;
+    private List<String> tagNames;
 
     @NotNull
     @JsonProperty("booking-id")
