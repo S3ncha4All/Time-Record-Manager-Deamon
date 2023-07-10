@@ -19,6 +19,7 @@ public class BookingMapper {
 
     public BookingReadDto toReadDto(Booking booking) {
         return BookingReadDto.builder()
+                .id(booking.getId())
                 .begin(booking.getBegin())
                 .end(booking.getEnd())
                 .build();

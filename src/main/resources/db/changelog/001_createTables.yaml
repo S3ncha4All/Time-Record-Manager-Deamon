@@ -91,6 +91,7 @@ databaseChangeLog:
                     primaryKeyName: pk_bookings_id
                     unique: true
                     nullable: false
+                    deleteCascade: true
               - column:
                   name: name
                   type: VARCHAR(20)

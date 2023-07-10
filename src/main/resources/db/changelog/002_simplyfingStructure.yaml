@@ -61,6 +61,7 @@ databaseChangeLog:
                     primaryKeyName: pk_bookingtag_id
                     unique: true
                     nullable: false
+                    deleteCascade: true
               - column:
                   name: booking_id
                   type: BIGINT
@@ -68,6 +69,7 @@ databaseChangeLog:
                     nullable: false
                     foreignKeyName: fk_bookingtags_booking_id
                     references: bookings(id)
+                    deleteCascade: true
               - column:
                   name: tag_id
                   type: BIGINT
