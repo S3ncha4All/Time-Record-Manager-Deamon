@@ -1,7 +1,7 @@
 package de.adesso.trmdeamon.dto.timesheet;
 
 import de.adesso.trmdeamon.dto.booking.BookingReadDetailsDto;
-import de.adesso.trmdeamon.dto.settings.SettingReadDto;
+import de.adesso.trmdeamon.dto.setting.SettingReadDto;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 

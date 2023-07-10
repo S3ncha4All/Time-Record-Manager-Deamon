@@ -1,8 +1,8 @@
 package de.adesso.trmdeamon.controller;
 
-import de.adesso.trmdeamon.dto.settings.SettingCreateDto;
-import de.adesso.trmdeamon.dto.settings.SettingReadDto;
-import de.adesso.trmdeamon.dto.settings.SettingUpdateDto;
+import de.adesso.trmdeamon.dto.setting.SettingCreateDto;
+import de.adesso.trmdeamon.dto.setting.SettingReadDto;
+import de.adesso.trmdeamon.dto.setting.SettingUpdateDto;
 import de.adesso.trmdeamon.service.SettingService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

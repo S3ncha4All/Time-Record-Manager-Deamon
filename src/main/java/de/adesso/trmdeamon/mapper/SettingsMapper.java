@@ -1,7 +1,7 @@
 package de.adesso.trmdeamon.mapper;
 
-import de.adesso.trmdeamon.dto.settings.SettingCreateDto;
-import de.adesso.trmdeamon.dto.settings.SettingReadDto;
+import de.adesso.trmdeamon.dto.setting.SettingCreateDto;
+import de.adesso.trmdeamon.dto.setting.SettingReadDto;
 import de.adesso.trmdeamon.model.Setting;
 import org.springframework.stereotype.Component;
 

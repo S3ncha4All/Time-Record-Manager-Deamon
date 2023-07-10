@@ -2,12 +2,10 @@ package de.adesso.trmdeamon.dto.booking;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import de.adesso.trmdeamon.dto.TagDto;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Getter
 @Setter
@@ -20,7 +18,7 @@ public class BookingReadDto {
     private Long id;
 
     @NotNull
-    @JsonProperty("time_sheet_id")
+    @JsonProperty("time-sheet-id")
     private Long timeSheetId;
 
     @NotNull

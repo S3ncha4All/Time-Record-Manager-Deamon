@@ -1,25 +1,21 @@
-package de.adesso.trmdeamon.dto;
+package de.adesso.trmdeamon.dto.tag;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TagDto {
+public class TagUpdateDto {
 
+    @NotNull
     private Long id;
 
     @NotNull
     private String name;
-
-    private Long bookingId;
 
 }

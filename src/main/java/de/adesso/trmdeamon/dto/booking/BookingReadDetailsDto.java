@@ -2,7 +2,7 @@ package de.adesso.trmdeamon.dto.booking;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import de.adesso.trmdeamon.dto.TagDto;
+import de.adesso.trmdeamon.dto.tag.TagReadDto;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -28,7 +28,7 @@ public class BookingReadDetailsDto {
 
     private LocalDateTime end;
 
-    private List<TagDto> tags;
+    private List<TagReadDto> tags;
 
 
 }

@@ -1,4 +1,4 @@
-package de.adesso.trmdeamon.dto.settings;
+package de.adesso.trmdeamon.dto.setting;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -8,10 +8,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SettingReadDto {
-
-    @NotNull
-    private Long id;
+public class SettingCreateDto {
 
     @NotNull
     private String name;

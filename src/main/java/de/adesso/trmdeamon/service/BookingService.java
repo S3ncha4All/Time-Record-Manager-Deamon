@@ -56,7 +56,11 @@ public class BookingService {
     }
 
     public List<BookingReadDto> getAllBooking(Long timeSheetId) {
-        return mapper.listToReadDto(repository.findAll());
+        if(timeSheetId != null) {
+            return mapper.listToReadDto(repository.findAllBookingsForTimeSheetId(timeSheetId));
+        } else {
+            return mapper.listToReadDto(repository.findAll());
+        }
     }
 
     public Booking getBooking(Long id) {

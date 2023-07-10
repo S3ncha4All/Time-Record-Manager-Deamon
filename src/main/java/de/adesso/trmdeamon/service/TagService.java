@@ -1,6 +1,8 @@
 package de.adesso.trmdeamon.service;
 
-import de.adesso.trmdeamon.dto.TagDto;
+import de.adesso.trmdeamon.dto.tag.TagCreateDto;
+import de.adesso.trmdeamon.dto.tag.TagReadDto;
+import de.adesso.trmdeamon.dto.tag.TagUpdateDto;
 import de.adesso.trmdeamon.mapper.TagMapper;
 import de.adesso.trmdeamon.model.Booking;
 import de.adesso.trmdeamon.model.BookingTags;
@@ -23,8 +25,8 @@ public class TagService {
     private final BookingTagsRepository bookingTagsRepository;
     private final BookingsRepository bookingRepository;
 
-    public TagDto createTag(TagDto dto) {
-        Tag t = tagMapper.fromDto(dto);
+    public TagReadDto createTag(TagCreateDto dto) {
+        Tag t = tagMapper.fromCreateDto(dto);
         t = tagRepository.save(t);
         Booking b = getBooking(dto.getBookingId());
         BookingTags bt = BookingTags.builder()
@@ -35,7 +37,7 @@ public class TagService {
         return tagMapper.fromEntity(t);
     }
 
-    public List<TagDto> getAllTags(Long bookingId) {
+    public List<TagReadDto> getAllTags(Long bookingId) {
         if(bookingId == null) {
             return tagMapper.listFromEntity(tagRepository.findAll());
         } else {
@@ -50,7 +52,7 @@ public class TagService {
         );
     }
 
-    public TagDto updateTag(TagDto dto) {
+    public TagReadDto updateTag(TagUpdateDto dto) {
         Tag t = tagRepository.findById(dto.getId()).orElseThrow(
                 () -> new RuntimeException("Tag not found")
         );

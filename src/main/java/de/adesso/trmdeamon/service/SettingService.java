@@ -1,8 +1,8 @@
 package de.adesso.trmdeamon.service;
 
-import de.adesso.trmdeamon.dto.settings.SettingCreateDto;
-import de.adesso.trmdeamon.dto.settings.SettingReadDto;
-import de.adesso.trmdeamon.dto.settings.SettingUpdateDto;
+import de.adesso.trmdeamon.dto.setting.SettingCreateDto;
+import de.adesso.trmdeamon.dto.setting.SettingReadDto;
+import de.adesso.trmdeamon.dto.setting.SettingUpdateDto;
 import de.adesso.trmdeamon.mapper.SettingsMapper;
 import de.adesso.trmdeamon.model.Setting;
 import de.adesso.trmdeamon.model.TimeSheet;

@@ -1,6 +1,8 @@
 package de.adesso.trmdeamon.controller;
 
-import de.adesso.trmdeamon.dto.TagDto;
+import de.adesso.trmdeamon.dto.tag.TagCreateDto;
+import de.adesso.trmdeamon.dto.tag.TagReadDto;
+import de.adesso.trmdeamon.dto.tag.TagUpdateDto;
 import de.adesso.trmdeamon.service.TagService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -25,18 +27,18 @@ public class TagController {
             }
     )
     @PostMapping("")
-    public ResponseEntity<TagDto> createTag(@Valid @RequestBody TagDto dto) {
+    public ResponseEntity<TagReadDto> createTag(@Valid @RequestBody TagCreateDto dto) {
         return ResponseEntity.status(201).body(service.createTag(dto));
     }
 
     @Operation(
-            description = "Returns all Tags from a Booking",
+            description = "Returns all Tags or from a Booking",
             responses = {
                     @ApiResponse(responseCode = "200", description = "Tags returned")
             }
     )
     @GetMapping()
-    public ResponseEntity<List<TagDto>> getTags(@Valid @RequestParam Long bookingId) {
+    public ResponseEntity<List<TagReadDto>> getTags(@Valid @RequestParam(value = "booking-id") Long bookingId) {
         return ResponseEntity.ok(service.getAllTags(bookingId));
     }
 
@@ -47,7 +49,7 @@ public class TagController {
             }
     )
     @PutMapping()
-    public ResponseEntity<TagDto> updateTag(@Valid @RequestBody TagDto dto) {
+    public ResponseEntity<TagReadDto> updateTag(@Valid @RequestBody TagUpdateDto dto) {
         return ResponseEntity.ok(service.updateTag(dto));
     }
 
