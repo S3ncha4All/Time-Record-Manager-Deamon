@@ -1,21 +1,25 @@
-package de.adesso.trmdeamon.dto.bookings;
+package de.adesso.trmdeamon.dto;
+
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateBookingDto {
+public class TagDto {
 
-    @JsonProperty("bucket_id")
-    private Long bucketId;
+    private Long id;
 
+    @NotNull
     private String name;
 
-    @JsonProperty("end_booking")
-    private Boolean endBooking;
+    private Long bookingId;
+
 }

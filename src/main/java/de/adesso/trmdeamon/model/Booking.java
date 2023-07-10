@@ -19,25 +19,23 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-
-    @ManyToOne
-    @JoinColumn(
-            name = "bucket_id",
-            nullable = false,
-            foreignKey = @ForeignKey(
-                    name = "fk_bookings_bucket_id",
-                    foreignKeyDefinition = "FOREIGN KEY (bucket_id)  REFERENCES bucket(id)"
-            )
-    )
-    private Bucket bucket;
-
-    @OneToMany(mappedBy = "booking")
-    private List<BookingAttribute> bookingAttributes;
-
     @Column(name = "begin_booking_timestamp", nullable = false)
     private LocalDateTime begin;
 
     @Column(name = "end_booking_timestamp")
     private LocalDateTime end;
+
+    @ManyToOne
+    @JoinColumn(
+            name = "time_sheet_id",
+            nullable = false,
+            foreignKey = @ForeignKey(
+                    name = "fk_bookings_time_sheet_id",
+                    foreignKeyDefinition = "FOREIGN KEY (time_sheet_id) REFERENCES time_sheet(id)"
+            )
+    )
+    private TimeSheet timeSheet;
+
+    @OneToMany(mappedBy = "booking")
+    private List<BookingTags> tags;
 }

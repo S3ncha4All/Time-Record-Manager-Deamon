@@ -1,6 +1,5 @@
-package de.adesso.trmdeamon.dto.settings;
+package de.adesso.trmdeamon.dto.timesheet;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -9,15 +8,11 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SettingDto {
+public class TimeSheetUpdateDto {
 
-    @NotNull
     private Long id;
 
     @NotNull
     private String name;
-
-    @NotNull
-    private String value;
 
 }

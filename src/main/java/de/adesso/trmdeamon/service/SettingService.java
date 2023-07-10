@@ -1,10 +1,9 @@
 package de.adesso.trmdeamon.service;
 
-import de.adesso.trmdeamon.dto.settings.ConstructSettingDto;
-import de.adesso.trmdeamon.dto.settings.SettingDto;
-import de.adesso.trmdeamon.dto.settings.UpdateSettingDto;
-import de.adesso.trmdeamon.dto.timesheet.TimeSheetDto;
-import de.adesso.trmdeamon.mapper.Mapper;
+import de.adesso.trmdeamon.dto.settings.SettingCreateDto;
+import de.adesso.trmdeamon.dto.settings.SettingReadDto;
+import de.adesso.trmdeamon.dto.settings.SettingUpdateDto;
+import de.adesso.trmdeamon.mapper.SettingsMapper;
 import de.adesso.trmdeamon.model.Setting;
 import de.adesso.trmdeamon.model.TimeSheet;
 import de.adesso.trmdeamon.repository.SettingsRepository;
@@ -12,58 +11,53 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class SettingService {
 
-    public static final Mapper<Setting, ConstructSettingDto> ConstructionMapper = new Mapper<>() {
-        @Override
-        public Setting fromDto(ConstructSettingDto dto) {
-            return Setting.builder()
-                    .name(dto.getName())
-                    .value(dto.getValue())
-                    .build();
-        }
-    };
-
-    public static final Mapper<Setting, SettingDto> SettingMapper = new Mapper<>() {
-        @Override
-        public SettingDto fromEntity(Setting setting) {
-            return SettingDto.builder()
-                    .id(setting.getId())
-                    .name(setting.getName())
-                    .value(setting.getValue())
-                    .build();
-        }
-    };
-
+    private final SettingsMapper mapper;
     private final SettingsRepository repository;
     private final TimeSheetService timeSheetService;
 
-    public TimeSheetDto createSetting(Long timeSheetId, ConstructSettingDto dto) {
-        TimeSheet ts = timeSheetService.getTimeSheet(timeSheetId);
-        Setting s = ConstructionMapper.fromDto(dto);
+    public SettingReadDto createSetting(SettingCreateDto dto) {
+        Setting s = mapper.fromCreateDto(dto);
+        TimeSheet ts = timeSheetService.getTimeSheet(dto.getTimeSheetId());
         s.setTimeSheet(ts);
-        repository.save(s);
-        return timeSheetService.getTimeSheetDto(timeSheetId);
+        return mapper.toReadDto(repository.save(s));
     }
 
-    public TimeSheetDto updateSetting(Long timeSheetId, Long settingId, UpdateSettingDto dto) {
-        Setting s = repository.findById(settingId).orElseThrow(
-                () -> new RuntimeException("Setting not found")
-        );
+    public SettingReadDto updateSetting(SettingUpdateDto dto) {
+        Setting s = getSetting(dto.getId());
         if(!StringUtils.isEmpty(dto.getName())) {
             s.setName(dto.getName());
         }
         if(!StringUtils.isEmpty(dto.getValue())) {
             s.setValue(dto.getValue());
         }
-        return timeSheetService.getTimeSheetDto(timeSheetId);
+        return mapper.toReadDto(repository.save(s));
     }
 
-    public TimeSheetDto deleteSetting(Long timeSheetId, Long id) {
+    public void deleteSetting(Long id) {
         repository.deleteById(id);
-        return timeSheetService.getTimeSheetDto(timeSheetId);
     }
 
+    public SettingReadDto getSettingDto(Long id) {
+        return mapper.toReadDto(getSetting(id));
+    }
+
+    public List<SettingReadDto> getAllSettings(Long timeSheetId) {
+        if(timeSheetId != null) {
+            return mapper.listToReadDto(repository.findAllSettingsForTimeSheet(timeSheetId));
+        } else {
+            return mapper.listToReadDto(repository.findAll());
+        }
+    }
+
+    public Setting getSetting(Long id) {
+        return repository.findById(id).orElseThrow(
+                () -> new RuntimeException("Setting not found")
+        );
+    }
 }

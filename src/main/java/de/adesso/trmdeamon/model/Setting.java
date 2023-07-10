@@ -26,7 +26,7 @@ public class Setting {
             nullable = false,
             foreignKey = @ForeignKey(
                     name = "fk_settings_time_sheet_id",
-                    foreignKeyDefinition = "FOREIGN KEY (time_sheet_id)  REFERENCES time_sheet(id)"
+                    foreignKeyDefinition = "FOREIGN KEY (time_sheet_id) REFERENCES time_sheet(id)"
             )
     )
     private TimeSheet timeSheet;

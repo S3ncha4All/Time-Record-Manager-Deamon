@@ -3,7 +3,9 @@ package de.adesso.trmdeamon.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -11,20 +13,15 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "time_sheets")
-public class TimeSheet {
+@Table(name = "tags")
+public class Tag {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "timeSheet")
-    private List<Setting> settings;
-
-    @OneToMany(mappedBy = "timeSheet")
-    private List<Booking> bookings;
-
+    @OneToMany(mappedBy = "tag")
+    private List<BookingTags> tags;
 }

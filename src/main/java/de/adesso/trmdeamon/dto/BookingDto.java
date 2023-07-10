@@ -1,7 +1,7 @@
-package de.adesso.trmdeamon.dto.bookings;
+package de.adesso.trmdeamon.dto;
 
 
-import de.adesso.trmdeamon.dto.attributes.AttributesDto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -15,17 +15,17 @@ import java.util.List;
 @AllArgsConstructor
 public class BookingDto {
 
-    @NotNull
     private Long id;
 
     @NotNull
-    private String name;
+    @JsonProperty("time_sheet_id")
+    private Long timeSheetId;
 
-    @NotNull
     private LocalDateTime begin;
 
     private LocalDateTime end;
 
-    @NotNull
-    private List<AttributesDto> attributes;
+    private List<TagDto> tags;
+
+
 }

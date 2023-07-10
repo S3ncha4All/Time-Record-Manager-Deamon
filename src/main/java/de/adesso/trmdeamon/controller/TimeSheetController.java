@@ -1,8 +1,9 @@
 package de.adesso.trmdeamon.controller;
 
-import de.adesso.trmdeamon.dto.timesheet.AllTimeSheetDto;
-import de.adesso.trmdeamon.dto.timesheet.ConstructTimeSheetDto;
-import de.adesso.trmdeamon.dto.timesheet.TimeSheetDto;
+import de.adesso.trmdeamon.dto.timesheet.TimeSheetCreateDto;
+import de.adesso.trmdeamon.dto.timesheet.TimeSheetReadDto;
+import de.adesso.trmdeamon.dto.timesheet.TimeSheetReadDetailsDto;
+import de.adesso.trmdeamon.dto.timesheet.TimeSheetUpdateDto;
 import de.adesso.trmdeamon.service.TimeSheetService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -14,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/time_sheet")
+@RequestMapping("/api/time-sheet")
 @RequiredArgsConstructor
 public class TimeSheetController {
 
@@ -27,7 +28,7 @@ public class TimeSheetController {
             }
     )
     @PostMapping
-    public ResponseEntity<TimeSheetDto> createTimeSheet(@Valid @RequestBody ConstructTimeSheetDto dto) {
+    public ResponseEntity<TimeSheetReadDto> createTimeSheet(@Valid @RequestBody TimeSheetCreateDto dto) {
         return ResponseEntity.status(201).body(service.createTimeSheet(dto));
     }
 
@@ -38,7 +39,7 @@ public class TimeSheetController {
             }
     )
     @PutMapping("/{id}")
-    public ResponseEntity<TimeSheetDto> updateTimeSheet(@Valid @PathVariable Long id, @Valid @RequestBody ConstructTimeSheetDto dto) {
+    public ResponseEntity<TimeSheetReadDto> updateTimeSheet(@Valid @PathVariable Long id, @Valid @RequestBody TimeSheetUpdateDto dto) {
         return ResponseEntity.ok(service.updateTimeSheet(id, dto));
     }
 
@@ -57,22 +58,22 @@ public class TimeSheetController {
     @Operation(
             description = "Get a given TimeSheet",
             responses = {
-                    @ApiResponse(responseCode = "200", description = "Time Sheet fetched")
+                    @ApiResponse(responseCode = "200", description = "Time Sheet returned")
             }
     )
     @GetMapping("/{id}")
-    public ResponseEntity<TimeSheetDto> getTimeSheet(@Valid @PathVariable Long id) {
+    public ResponseEntity<TimeSheetReadDetailsDto> getTimeSheet(@Valid @PathVariable Long id) {
         return ResponseEntity.ok(service.getTimeSheetDto(id));
     }
 
     @Operation(
             description = "Get all TimeSheets",
             responses = {
-                    @ApiResponse(responseCode = "200", description = "TimeSheets fetched")
+                    @ApiResponse(responseCode = "200", description = "TimeSheets returned")
             }
     )
     @GetMapping()
-    public ResponseEntity<List<AllTimeSheetDto>> getAllTimeSheet() {
+    public ResponseEntity<List<TimeSheetReadDto>> getAllTimeSheet() {
         return ResponseEntity.ok(service.getAllTimeSheets());
     }
 }

@@ -8,12 +8,16 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ConstructSettingDto {
+public class SettingReadDto {
+
+    private Long id;
 
     @NotNull
     private String name;
 
-    @NotNull
     private String value;
+
+    @NotNull
+    private Long timeSheetId;
 
 }

@@ -1,7 +1,7 @@
 package de.adesso.trmdeamon.dto.timesheet;
 
-import de.adesso.trmdeamon.dto.buckets.BucketDto;
-import de.adesso.trmdeamon.dto.settings.SettingDto;
+import de.adesso.trmdeamon.dto.BookingDto;
+import de.adesso.trmdeamon.dto.settings.SettingReadDto;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -12,18 +12,15 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TimeSheetDto {
+public class TimeSheetReadDetailsDto {
 
-    @NotNull
     private Long id;
 
     @NotNull
     private String name;
 
-    @NotNull
-    private List<SettingDto> settings;
+    private List<SettingReadDto> settings;
 
-    @NotNull
-    private List<BucketDto> buckets;
+    private List<BookingDto> bookings;
 
 }

@@ -1,0 +1,77 @@
+databaseChangeLog:
+  - changeSet:
+      id: Drop old unnecessary Tables. Create new Tables for Tags
+      author: ross
+      changes:
+        - dropAllForeignKeyConstraints:
+            baseTableName: buckets
+        - dropColumn:
+            tableName: bookings
+            columns:
+              - column:
+                  name: bucket_id
+              - column:
+                  name: name
+        - dropTable:
+            tableName: booking_attributes
+        - dropTable:
+            tableName: bucket_attributes
+        - dropTable:
+            tableName: buckets
+        - modifyDataType:
+            tableName: time_sheets
+            columnName: name
+            newDataType: VARCHAR(50)
+        - addColumn:
+            tableName: bookings
+            columns:
+              - column:
+                  name: time_sheet_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_bookings_time_sheet_id
+                    references: time_sheets(id)
+        - createTable:
+            tableName: tags
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_tag_id
+                    unique: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+        - createTable:
+            tableName: booking_tags
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_bookingtag_id
+                    unique: true
+                    nullable: false
+              - column:
+                  name: booking_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_bookingtags_booking_id
+                    references: bookings(id)
+              - column:
+                  name: tag_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_bookingtags_tag_id
+                    references: tags(id)

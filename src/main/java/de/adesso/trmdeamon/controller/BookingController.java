@@ -1,8 +1,6 @@
 package de.adesso.trmdeamon.controller;
 
-import de.adesso.trmdeamon.dto.bookings.ConstructBookingDto;
-import de.adesso.trmdeamon.dto.bookings.UpdateBookingDto;
-import de.adesso.trmdeamon.dto.timesheet.TimeSheetDto;
+import de.adesso.trmdeamon.dto.BookingDto;
 import de.adesso.trmdeamon.service.BookingService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -11,22 +9,46 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/api/time_sheet/{timeSheetId}/buckets/{bucketId}/booking")
+@RequestMapping("/api/booking")
 @RequiredArgsConstructor
 public class BookingController {
 
     private final BookingService service;
 
     @Operation(
-            description = "Create a new Booking in a given TimeSheet and a given Bucket",
+            description = "Create a new Booking",
             responses = {
                     @ApiResponse(responseCode = "201", description = "Bucket created")
             }
     )
     @PostMapping
-    public ResponseEntity<TimeSheetDto> createBooking(@Valid @PathVariable Long timeSheetId, @Valid @PathVariable Long bucketId, @Valid @RequestBody ConstructBookingDto dto) {
-        return ResponseEntity.status(201).body(service.createBooking(timeSheetId, bucketId, dto));
+    public ResponseEntity<BookingDto> createBooking(@Valid @RequestBody BookingDto dto) {
+        return ResponseEntity.status(201).body(service.createBooking(dto));
+    }
+
+    @Operation(
+            description = "Returns a specific Booking",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Bucket updated")
+            }
+    )
+    @GetMapping("/{id}")
+    public ResponseEntity<BookingDto> getBooking(@Valid @PathVariable Long id) {
+        return ResponseEntity.ok(service.getBookingDto(id));
+    }
+
+    @Operation(
+            description = "Returns a specific Booking",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Booking updated")
+            }
+    )
+    @GetMapping()
+    public ResponseEntity<List<BookingDto>> getAllBookings() {
+        return ResponseEntity.ok(service.getAllBooking());
     }
 
     @Operation(
@@ -35,19 +57,20 @@ public class BookingController {
                     @ApiResponse(responseCode = "200", description = "Bucket updated")
             }
     )
-    @PutMapping("/{id}")
-    public ResponseEntity<TimeSheetDto> updateBooking(@Valid @PathVariable Long timeSheetId, @Valid @PathVariable Long bucketId, @Valid @PathVariable Long id, @Valid @RequestBody UpdateBookingDto dto) {
-        return ResponseEntity.ok(service.updateBooking(timeSheetId, bucketId, id, dto));
+    @PutMapping()
+    public ResponseEntity<BookingDto> updateBooking(@Valid @RequestBody BookingDto dto) {
+        return ResponseEntity.ok(service.updateBooking(dto));
     }
 
     @Operation(
-            description = "Delete a given Bucket",
+            description = "Delete a given Booking",
             responses = {
                     @ApiResponse(responseCode = "204", description = "Bucket deleted")
             }
     )
     @DeleteMapping("/{id}")
-    public ResponseEntity<TimeSheetDto> deleteBooking(@Valid @PathVariable Long timeSheetId, @Valid @PathVariable Long bucketId, @Valid @PathVariable Long id) {
-        return ResponseEntity.ok(service.deleteBooking(timeSheetId, bucketId, id));
+    public ResponseEntity<Void> deleteBooking(@Valid @PathVariable Long id) {
+        service.deleteBooking(id);
+        return ResponseEntity.noContent().build();
     }
 }

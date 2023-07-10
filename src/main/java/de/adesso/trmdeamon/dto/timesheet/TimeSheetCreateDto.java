@@ -1,4 +1,4 @@
-package de.adesso.trmdeamon.dto.settings;
+package de.adesso.trmdeamon.dto.timesheet;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -8,10 +8,8 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateSettingDto {
+public class TimeSheetCreateDto {
 
+    @NotNull
     private String name;
-
-    private String value;
-
 }
