@@ -19,4 +19,7 @@ public class BookingCreateDto {
     @JsonProperty("time_sheet_id")
     private Long timeSheetId;
 
+    @JsonProperty("active_right_away")
+    private Boolean activateRightAway;
+
 }

@@ -26,12 +26,22 @@ public class BookingService {
         Booking b = Booking.builder().build();
         TimeSheet ts = timeSheetService.getTimeSheet(dto.getTimeSheetId());
         b.setTimeSheet(ts);
+        if(Boolean.TRUE.equals(dto.getActivateRightAway())) {
+            b.setBegin(LocalDateTime.now());
+        }
+        return mapper.toReadDto(repository.save(b));
+    }
+
+    public BookingReadDto startBooking(Long id) {
+        Booking b = getBooking(id);
+        if(b.getBegin() != null) throw new RuntimeException("Booking with ID already started!");
         b.setBegin(LocalDateTime.now());
         return mapper.toReadDto(repository.save(b));
     }
 
     public BookingReadDto endBooking(Long id) {
         Booking b = getBooking(id);
+        if(b.getEnd() != null) throw new RuntimeException("Booking with ID already ended!");
         b.setEnd(LocalDateTime.now());
         return mapper.toReadDto(repository.save(b));
     }

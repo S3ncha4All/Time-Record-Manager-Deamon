@@ -14,20 +14,20 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/tags")
+@RequestMapping("/api/v1/tags")
 @RequiredArgsConstructor
 public class TagController {
 
     private final TagService service;
 
     @Operation(
-            description = "Create a new Tag added to a Booking",
+            description = "Create a new Tag",
             responses = {
                     @ApiResponse(responseCode = "201", description = "Tag created")
             }
     )
     @PostMapping("")
-    public ResponseEntity<List<TagReadDto>> createTag(@Valid @RequestBody TagCreateDto dto) {
+    public ResponseEntity<TagReadDto> createTag(@Valid @RequestBody TagCreateDto dto) {
         return ResponseEntity.status(201).body(service.createTag(dto));
     }
 
@@ -38,8 +38,8 @@ public class TagController {
             }
     )
     @GetMapping()
-    public ResponseEntity<List<TagReadDto>> getTags(@Valid @RequestParam(value = "booking-id") Long bookingId) {
-        return ResponseEntity.ok(service.getAllTags(bookingId));
+    public ResponseEntity<List<TagReadDto>> getTags() {
+        return ResponseEntity.ok(service.getAllTags());
     }
 
     @Operation(

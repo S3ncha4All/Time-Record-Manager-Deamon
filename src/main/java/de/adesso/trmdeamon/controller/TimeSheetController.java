@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/time-sheet")
+@RequestMapping("/api/v1/time-sheet")
 @RequiredArgsConstructor
 public class TimeSheetController {
 

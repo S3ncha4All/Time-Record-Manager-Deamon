@@ -48,6 +48,7 @@ databaseChangeLog:
                   name: name
                   type: VARCHAR(50)
                   constraints:
+                    unique: true
                     nullable: false
         - createTable:
             tableName: booking_tags

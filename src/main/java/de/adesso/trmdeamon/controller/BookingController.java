@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/booking")
+@RequestMapping("/api/v1/booking")
 @RequiredArgsConstructor
 public class BookingController {
 
@@ -66,12 +66,23 @@ public class BookingController {
     }
 
     @Operation(
+            description = "Start a given Booking",
+            responses = {
+                    @ApiResponse(responseCode = "204", description = "Booking started")
+            }
+    )
+    @PatchMapping("/{id}/start")
+    public ResponseEntity<BookingReadDto> startBooking(@Valid @PathVariable Long id) {
+        return ResponseEntity.ok(service.startBooking(id));
+    }
+
+    @Operation(
             description = "End a given Booking",
             responses = {
                     @ApiResponse(responseCode = "204", description = "Booking ended")
             }
     )
-    @PutMapping("/{id}/end")
+    @PatchMapping("/{id}/end")
     public ResponseEntity<BookingReadDto> endBooking(@Valid @PathVariable Long id) {
         return ResponseEntity.ok(service.endBooking(id));
     }

@@ -15,10 +15,6 @@ import java.util.List;
 public class TagCreateDto {
 
     @NotNull
-    private List<String> tagNames;
-
-    @NotNull
-    @JsonProperty("booking-id")
-    private Long bookingId;
+    private String tagName;
 
 }
