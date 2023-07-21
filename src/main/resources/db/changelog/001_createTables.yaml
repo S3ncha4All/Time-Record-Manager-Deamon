@@ -107,8 +107,6 @@ databaseChangeLog:
               - column:
                   name: begin_booking_timestamp
                   type: TIMESTAMPTZ
-                  constraints:
-                    nullable: false
               - column:
                   name: end_booking_timestamp
                   type: TIMESTAMPTZ

@@ -71,6 +71,8 @@ databaseChangeLog:
                     foreignKeyName: fk_bookingtags_booking_id
                     references: bookings(id)
                     deleteCascade: true
+                    unique: true
+                    uniqueConstraintName: unique_booking_tag
               - column:
                   name: tag_id
                   type: BIGINT
@@ -78,3 +80,5 @@ databaseChangeLog:
                     nullable: false
                     foreignKeyName: fk_bookingtags_tag_id
                     references: tags(id)
+                    unique: true
+                    uniqueConstraintName: unique_booking_tag

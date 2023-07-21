@@ -24,7 +24,7 @@ public class BookingController {
     @Operation(
             description = "Create a new Booking",
             responses = {
-                    @ApiResponse(responseCode = "201", description = "Bucket created")
+                    @ApiResponse(responseCode = "201", description = "Booking created")
             }
     )
     @PostMapping
@@ -35,7 +35,7 @@ public class BookingController {
     @Operation(
             description = "Returns a specific Booking",
             responses = {
-                    @ApiResponse(responseCode = "200", description = "Bucket updated")
+                    @ApiResponse(responseCode = "200", description = "Booking returned")
             }
     )
     @GetMapping("/{id}")
@@ -57,7 +57,7 @@ public class BookingController {
     @Operation(
             description = "Updates a given Booking",
             responses = {
-                    @ApiResponse(responseCode = "200", description = "Bucket updated")
+                    @ApiResponse(responseCode = "200", description = "Booking updated")
             }
     )
     @PutMapping()

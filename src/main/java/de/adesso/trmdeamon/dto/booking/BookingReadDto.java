@@ -17,7 +17,6 @@ public class BookingReadDto {
     @NotNull
     private Long id;
 
-    @NotNull
     private LocalDateTime begin;
 
     private LocalDateTime end;
