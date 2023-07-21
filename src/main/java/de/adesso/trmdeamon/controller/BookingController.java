@@ -68,7 +68,7 @@ public class BookingController {
     @Operation(
             description = "Start a given Booking",
             responses = {
-                    @ApiResponse(responseCode = "204", description = "Booking started")
+                    @ApiResponse(responseCode = "200", description = "Booking started")
             }
     )
     @PatchMapping("/{id}/start")
@@ -79,7 +79,7 @@ public class BookingController {
     @Operation(
             description = "End a given Booking",
             responses = {
-                    @ApiResponse(responseCode = "204", description = "Booking ended")
+                    @ApiResponse(responseCode = "200", description = "Booking ended")
             }
     )
     @PatchMapping("/{id}/end")
@@ -90,7 +90,7 @@ public class BookingController {
     @Operation(
             description = "Delete a given Booking",
             responses = {
-                    @ApiResponse(responseCode = "204", description = "Bucket deleted")
+                    @ApiResponse(responseCode = "204", description = "Booking deleted")
             }
     )
     @DeleteMapping("/{id}")
