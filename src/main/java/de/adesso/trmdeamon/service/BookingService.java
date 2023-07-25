@@ -6,6 +6,8 @@ import de.adesso.trmdeamon.dto.booking.BookingReadDto;
 import de.adesso.trmdeamon.dto.booking.BookingUpdateDto;
 import de.adesso.trmdeamon.mapper.BookingMapper;
 import de.adesso.trmdeamon.model.Booking;
+import de.adesso.trmdeamon.model.BookingTags;
+import de.adesso.trmdeamon.model.Tag;
 import de.adesso.trmdeamon.model.TimeSheet;
 import de.adesso.trmdeamon.repository.BookingsRepository;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +34,7 @@ public class BookingService {
         }
         Booking saved = repository.save(b);
         if(dto.getTagsDto() != null) {
-            bookingTagService.addTagsToBooking(saved.getId(), dto.getTagsDto());
+
         }
         return mapper.toReadDto(saved);
     }

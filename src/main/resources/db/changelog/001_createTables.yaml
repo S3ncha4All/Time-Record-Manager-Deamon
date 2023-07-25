@@ -15,6 +15,7 @@ databaseChangeLog:
                     primaryKeyName: pk_time_sheet_id
                     unique: true
                     nullable: false
+                    deleteCascade: true
               - column:
                   name: name
                   type: VARCHAR(20)

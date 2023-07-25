@@ -17,6 +17,6 @@ public class TimeSheetReadDto {
     @NotNull
     private String name;
 
-    @JsonProperty("booking_count")
+    @JsonProperty(value = "booking_count", defaultValue = "0")
     private int bookingCount;
 }
