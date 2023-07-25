@@ -20,6 +20,7 @@ public class BookingService {
 
     private final BookingMapper mapper;
     private final BookingsRepository repository;
+    private final BookingTagService bookingTagService;
     private final TimeSheetService timeSheetService;
 
     public BookingReadDto createBooking(BookingCreateDto dto) {
@@ -29,7 +30,11 @@ public class BookingService {
         if(Boolean.TRUE.equals(dto.getActivateRightAway())) {
             b.setBegin(LocalDateTime.now());
         }
-        return mapper.toReadDto(repository.save(b));
+        Booking saved = repository.save(b);
+        if(dto.getTagsDto() != null) {
+            bookingTagService.addTagsToBooking(saved.getId(), dto.getTagsDto());
+        }
+        return mapper.toReadDto(saved);
     }
 
     public BookingReadDto startBooking(Long id) {

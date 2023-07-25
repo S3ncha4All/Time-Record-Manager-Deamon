@@ -2,6 +2,7 @@ package de.adesso.trmdeamon.dto.booking;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import de.adesso.trmdeamon.dto.bookingtags.BookingTagsDto;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -21,5 +22,8 @@ public class BookingCreateDto {
 
     @JsonProperty("active_right_away")
     private Boolean activateRightAway;
+
+    @JsonProperty("tags")
+    private BookingTagsDto tagsDto;
 
 }
