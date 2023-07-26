@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -27,8 +28,18 @@ public class BookingTagService {
             repository.saveAll(bookingTags);
         }
         if(dto.getTagNames() != null && !dto.getTagNames().isEmpty()) {
-            List<Tag> tagsFromNames = tagsRepository.findAllByName(dto.getTagNames());
-            List<BookingTags> bookingTags = tagsFromNames.stream().map(t -> BookingTags.builder().tag(t).booking(b).build()).toList();
+            List<Tag> tags = tagsRepository.findAllByName(dto.getTagNames());
+            List<String> tempTagsFromNames = tags.stream().map(Tag::getName).toList();
+            List<String> createTagNames = dto.getTagNames().stream().filter(n -> !tempTagsFromNames.contains(n)).toList();
+            createTagNames.forEach(
+                    n -> {
+                        Tag t = Tag.builder()
+                                .name(n)
+                                .build();
+                        tags.add(tagsRepository.save(t));
+                    }
+            );
+            List<BookingTags> bookingTags = tags.stream().map(t -> BookingTags.builder().tag(t).booking(b).build()).toList();
             repository.saveAll(bookingTags);
         }
     }

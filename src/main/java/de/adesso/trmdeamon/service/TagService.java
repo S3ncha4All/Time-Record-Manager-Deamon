@@ -23,7 +23,7 @@ public class TagService {
         Tag t = Tag.builder()
                 .name(dto.getTagName())
                 .build();
-        return tagMapper.fromEntity(t);
+        return tagMapper.fromEntity(tagRepository.save(t));
     }
 
     public List<TagReadDto> getAllTags() {

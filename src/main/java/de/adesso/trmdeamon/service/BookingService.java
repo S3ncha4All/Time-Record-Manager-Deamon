@@ -25,7 +25,7 @@ public class BookingService {
     private final BookingTagService bookingTagService;
     private final TimeSheetService timeSheetService;
 
-    public BookingReadDto createBooking(BookingCreateDto dto) {
+    public BookingReadDetailsDto createBooking(BookingCreateDto dto) {
         Booking b = Booking.builder().build();
         TimeSheet ts = timeSheetService.getTimeSheet(dto.getTimeSheetId());
         b.setTimeSheet(ts);
@@ -34,9 +34,9 @@ public class BookingService {
         }
         Booking saved = repository.save(b);
         if(dto.getTagsDto() != null) {
-
+            bookingTagService.addTagsToBooking(saved.getId(), dto.getTagsDto());
         }
-        return mapper.toReadDto(saved);
+        return mapper.toReadDetailsDto(saved);
     }
 
     public BookingReadDto startBooking(Long id) {
@@ -48,6 +48,7 @@ public class BookingService {
 
     public BookingReadDto endBooking(Long id) {
         Booking b = getBooking(id);
+        if(b.getBegin() == null) throw new RuntimeException("Booking with ID did not start!");
         if(b.getEnd() != null) throw new RuntimeException("Booking with ID already ended!");
         b.setEnd(LocalDateTime.now());
         return mapper.toReadDto(repository.save(b));

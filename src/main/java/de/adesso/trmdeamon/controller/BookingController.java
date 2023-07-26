@@ -28,7 +28,7 @@ public class BookingController {
             }
     )
     @PostMapping
-    public ResponseEntity<BookingReadDto> createBooking(@Valid @RequestBody BookingCreateDto dto) {
+    public ResponseEntity<BookingReadDetailsDto> createBooking(@Valid @RequestBody BookingCreateDto dto) {
         return ResponseEntity.status(201).body(service.createBooking(dto));
     }
 
