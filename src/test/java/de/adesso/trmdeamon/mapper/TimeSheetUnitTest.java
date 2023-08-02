@@ -1,8 +1,11 @@
 package de.adesso.trmdeamon.mapper;
 
-import de.adesso.trmdeamon.dto.timesheet.TimeSheetReadDto;
-import de.adesso.trmdeamon.model.Setting;
-import de.adesso.trmdeamon.model.TimeSheet;
+import de.adesso.trmdeamon.v1.dto.timesheet.TimeSheetReadDto;
+import de.adesso.trmdeamon.v1.mapper.BookingMapper;
+import de.adesso.trmdeamon.v1.mapper.SettingsMapper;
+import de.adesso.trmdeamon.v1.mapper.TagMapper;
+import de.adesso.trmdeamon.v1.mapper.TimeSheetMapper;
+import de.adesso.trmdeamon.v1.model.TimeSheet;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;

@@ -1,11 +1,13 @@
 package de.adesso.trmdeamon.mapper;
 
 
-import de.adesso.trmdeamon.dto.booking.BookingReadDetailsDto;
-import de.adesso.trmdeamon.dto.booking.BookingReadDto;
-import de.adesso.trmdeamon.model.Booking;
-import de.adesso.trmdeamon.model.BookingTags;
-import de.adesso.trmdeamon.model.Tag;
+import de.adesso.trmdeamon.v1.dto.booking.BookingReadDetailsDto;
+import de.adesso.trmdeamon.v1.dto.booking.BookingReadDto;
+import de.adesso.trmdeamon.v1.mapper.BookingMapper;
+import de.adesso.trmdeamon.v1.mapper.TagMapper;
+import de.adesso.trmdeamon.v1.model.Booking;
+import de.adesso.trmdeamon.v1.model.BookingTags;
+import de.adesso.trmdeamon.v1.model.Tag;
 import org.hamcrest.Matcher;
 import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
