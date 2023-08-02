@@ -1,9 +1,8 @@
 package de.adesso.trmdeamon.mapper;
 
 
-import de.adesso.trmdeamon.v1.dto.tag.TagReadDto;
-import de.adesso.trmdeamon.v1.mapper.TagMapper;
-import de.adesso.trmdeamon.v1.model.Tag;
+import de.adesso.trmdeamon.dto.tag.TagReadDto;
+import de.adesso.trmdeamon.model.Tag;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

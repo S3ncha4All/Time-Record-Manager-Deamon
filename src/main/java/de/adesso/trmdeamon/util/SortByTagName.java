@@ -1,6 +1,6 @@
 package de.adesso.trmdeamon.util;
 
-import de.adesso.trmdeamon.v1.model.BookingTags;
+import de.adesso.trmdeamon.model.BookingTags;
 
 import java.util.Comparator;
 

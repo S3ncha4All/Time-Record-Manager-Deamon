@@ -1,10 +1,9 @@
 package de.adesso.trmdeamon.mapper;
 
 
-import de.adesso.trmdeamon.v1.dto.setting.SettingCreateDto;
-import de.adesso.trmdeamon.v1.dto.setting.SettingReadDto;
-import de.adesso.trmdeamon.v1.mapper.SettingsMapper;
-import de.adesso.trmdeamon.v1.model.Setting;
+import de.adesso.trmdeamon.dto.setting.SettingCreateDto;
+import de.adesso.trmdeamon.dto.setting.SettingReadDto;
+import de.adesso.trmdeamon.model.Setting;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
