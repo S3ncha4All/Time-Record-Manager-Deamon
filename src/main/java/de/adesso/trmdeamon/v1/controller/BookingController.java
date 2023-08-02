@@ -50,7 +50,7 @@ public class BookingController {
             }
     )
     @GetMapping()
-    public ResponseEntity<List<BookingReadDto>> getAllBookings(@Valid @RequestParam(value = "time-sheet-id") Long timeSheetId) {
+    public ResponseEntity<List<BookingReadDto>> getAllBookings(@Valid @RequestParam(value = "time-sheet-id", required = false) Long timeSheetId) {
         return ResponseEntity.ok(service.getAllBooking(timeSheetId));
     }
 
