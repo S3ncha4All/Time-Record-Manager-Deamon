@@ -1,6 +1,7 @@
 package de.adesso.trmdeamon.v2.service;
 
 import de.adesso.trmdeamon.util.sort.SortOrder;
+import de.adesso.trmdeamon.util.sort.SortTags;
 import de.adesso.trmdeamon.util.sort.SortTimeSheets;
 import de.adesso.trmdeamon.v1.dto.tag.TagCreateDto;
 import de.adesso.trmdeamon.v1.dto.tag.TagReadDto;
@@ -18,7 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TagServiceV2 {
 
-    public Page<TagReadDto> getPagedTags(String filterName, Integer pageIndex, Integer pageSize, SortTimeSheets sortTimeSheets, SortOrder sortOrder) {
+    public Page<TagReadDto> getPagedTags(String filterName, Integer pageIndex, Integer pageSize, SortTags sortTags, SortOrder sortOrder) {
         return null;
     }
 }

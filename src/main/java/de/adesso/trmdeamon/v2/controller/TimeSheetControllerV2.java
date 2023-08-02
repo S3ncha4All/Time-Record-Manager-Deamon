@@ -6,6 +6,7 @@ import de.adesso.trmdeamon.util.sort.SortOrder;
 import de.adesso.trmdeamon.util.sort.SortTimeSheets;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -26,11 +27,11 @@ public class TimeSheetControllerV2 {
     )
     @GetMapping()
     public ResponseEntity<Page<TimeSheetReadDto>> getAllTimeSheet(
-            @RequestParam(required = false) String filterName,
-            @RequestParam(required = false, defaultValue = "0") Integer pageIndex,
-            @RequestParam(required = false, defaultValue = "10") Integer pageSize,
-            @RequestParam(required = false, defaultValue = "id") SortTimeSheets sortTimeSheets,
-            @RequestParam(required = false, defaultValue = "asc") SortOrder sortOrder
+            @Valid @RequestParam(required = false) String filterName,
+            @Valid @RequestParam(required = false, defaultValue = "0") Integer pageIndex,
+            @Valid @RequestParam(required = false, defaultValue = "10") Integer pageSize,
+            @Valid @RequestParam(required = false, defaultValue = "id") SortTimeSheets sortTimeSheets,
+            @Valid @RequestParam(required = false, defaultValue = "asc") SortOrder sortOrder
     ) {
         return ResponseEntity.ok(service.getPagedTimeSheets(filterName, pageIndex, pageSize, sortTimeSheets, sortOrder));
     }
