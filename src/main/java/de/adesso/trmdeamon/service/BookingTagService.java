@@ -10,6 +10,7 @@ import de.adesso.trmdeamon.repository.TagsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,7 +23,8 @@ public class BookingTagService {
     public void addTagsToBooking(Long bookingId, BookingTagsDto dto) {
         Booking b = getBooking(bookingId);
         if(dto.getTagIds() != null && !dto.getTagIds().isEmpty()) {
-            List<Tag> tagsFromIds = tagsRepository.findAllById(dto.getTagIds());
+            List<Tag> tagsFromIds = new ArrayList<>();
+            tagsRepository.findAllById(dto.getTagIds()).forEach(tagsFromIds::add);
             List<BookingTags> bookingTags = tagsFromIds.stream().map(t -> BookingTags.builder().tag(t).booking(b).build()).toList();
             repository.saveAll(bookingTags);
         }

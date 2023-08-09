@@ -15,7 +15,7 @@ import java.util.List;
 @Repository
 public interface BookingsRepository extends PagingAndSortingRepository<Booking, Long>, CrudRepository<Booking, Long> {
 
-    @Query("SELECT b FROM Booking b WHERE b.timeSheet = :timeSheetId")
+    @Query("SELECT b FROM Booking b WHERE b.timeSheet = :timeSheetId ORDER BY b.id")
     List<Booking> findAllBookingsForTimeSheetId(@Param("timeSheetId") Long timeSheetId);
 
     @Query("SELECT b FROM Booking b WHERE b.timeSheet = :timeSheetId")
